@@ -16,8 +16,9 @@ public class NFP121_nib_2417n_2419n {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.print("AAAAA");        System.out.print("AAAAA");
-        System.out.print("branch test 2");
+       if(1 == 1){
+           System.out.println("abc");
+       }
 
     }
     
