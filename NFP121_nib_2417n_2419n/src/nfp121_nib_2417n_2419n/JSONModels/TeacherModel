@@ -4,6 +4,9 @@
    "password":"password",
    "name":"etien khoueiry",
    "matiere":{
+      "code":123,
+      "name":"asdasd",
+      "credits":1,
       "syllabus":[
          "asdasdas",
          "dadasda",
