@@ -1,0 +1,30 @@
+{
+   "id":12e4123,
+   "username":"etien",
+   "password":"password",
+   "name":"etien khoueiry",
+   "matiere":{
+      "syllabus":[
+         "asdasdas",
+         "dadasda",
+         "asdasd"
+      ],
+      "objectifs":[
+         "dasdasda",
+         "dasdas",
+         "asdasda"
+      ],
+      "chapitres":[
+         "Chapitre 1 - asdasd",
+         "Chapitre2- blabalbkdas"
+      ],
+      "documents":[
+         "fullPath",
+         "fullPath2"
+      ],
+      "videos":[
+         "fullpath1",
+         "fullpath2"
+      ]
+   }
+}
