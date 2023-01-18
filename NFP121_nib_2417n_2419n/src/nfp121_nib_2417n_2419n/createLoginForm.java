@@ -45,8 +45,9 @@ class CreateLoginForm extends JFrame implements ActionListener
         textField2 = new JPasswordField(10);    //set length for the password  
           
         //create submit button  
-        b1 = new JButton("SUBMIT"); //set label to button  
-        b2 = new JButton("CREATE ACCOUNT");  
+        b1 = new JButton("LOGIN"); //set label to button  
+        b2 = new JButton("CREATE ACCOUNT");
+        b2.addActionListener(new regFormActionListener());
         //create panel to put form elements  
         newPanel1 = new JPanel(new GridLayout(2, 1));  
         radioPanel = new JPanel();
@@ -70,7 +71,7 @@ class CreateLoginForm extends JFrame implements ActionListener
         newPanel.add(radioPanel);   
         newPanel.add(newPanel2);
         
-        add(newPanel, BorderLayout.CENTER);  
+        this.add(newPanel, BorderLayout.CENTER);  
         //perform action on button click   
         b1.addActionListener(this);     //add action listener to button  
         setTitle("LOGIN FORM");         //set title to the login form  
@@ -86,24 +87,22 @@ class CreateLoginForm extends JFrame implements ActionListener
         if (userValue.equals("test1@gmail.com") && passValue.equals("test")) {  //if authentic, navigate user to a new page  
               
             //create instance of the NewPage  
-            loginForm loginform = new loginForm();  
+         //   loginForm loginform = new loginForm();  
               
             //make page visible to the user  
-            loginform.setVisible(true);  
+      //      loginform.setVisible(true);  
               
             //create a welcome label and set it to the new page  
-            JLabel wel_label = new JLabel("Welcome: "+userValue);  
-            loginform.getContentPane().add(wel_label);  
+        //    JLabel wel_label = new JLabel("Welcome: "+userValue);  
+          //  loginform.getContentPane().add(wel_label);  
         }  
         else{  
             //show error message  
             System.out.println("Please enter valid username and password");  
         }  
     }  
-}  
+
 //create the main class  
-class LoginFormDemo  
-{  
     //main() method start  
     public static void main(String arg[])  
     {  
@@ -121,6 +120,14 @@ class LoginFormDemo
             JOptionPane.showMessageDialog(null, e.getMessage());  
         }  
     }  
-}  
+}
+class regFormActionListener implements ActionListener
+{
+public void actionPerformed (ActionEvent event) {
+
+    registrationForm r = new registrationForm();
+    
+}
+}
     
 
