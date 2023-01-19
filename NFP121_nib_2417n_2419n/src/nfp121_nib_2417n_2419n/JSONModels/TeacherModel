@@ -7,11 +7,13 @@
       "code":123,
       "name":"asdasd",
       "credits":1,
+      "séance":"1/1/2023 - 12",
       "syllabus":[
          "asdasdas",
          "dadasda",
          "asdasd"
       ],
+      "prix":12, 
       "objectifs":[
          "dasdasda",
          "dasdas",
@@ -29,5 +31,6 @@
          "fullpath1",
          "fullpath2"
       ]
+      
    }
 }
