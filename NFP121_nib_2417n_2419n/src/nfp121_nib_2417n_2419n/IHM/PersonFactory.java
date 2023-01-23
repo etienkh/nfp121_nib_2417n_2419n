@@ -45,19 +45,13 @@ public class PersonFactory implements Serializable {
 
         try {
             for (Person per : personList) {
-
-                if (per.username.equalsIgnoreCase(person.username)) {          
-                    throw new existUsername(person.username);
-
+                if (per.username.trim().equalsIgnoreCase(person.username.trim())) {
+                    JLabel label = new JLabel("This username already exist");
+                    label.setFont(new Font("calibri", Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                    return null;
                 }
-
             }
-
-        } catch (existUsername eu) {
-            System.out.println(eu);
-        }
-
-        try {
             if (typePerson.equalsIgnoreCase("student")) {
                 p = new Student(person.username, person.firstName, person.lastName, person.password);
             } else {
@@ -84,10 +78,6 @@ public class PersonFactory implements Serializable {
 
         existUsername(String mes) {
 
-            JLabel label = new JLabel("This username already exist");
-            label.setFont(new Font("calibri", Font.BOLD, 15));
-            JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-            
         }
     }
 

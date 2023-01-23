@@ -41,7 +41,7 @@ import java.util.ArrayList;
         this.lastName = lastName;
         this.password = password;
         
-        if(readAllPerson().size() == 0){
+        if(readAllPerson().isEmpty()){
             id = 1;
         }
         else{

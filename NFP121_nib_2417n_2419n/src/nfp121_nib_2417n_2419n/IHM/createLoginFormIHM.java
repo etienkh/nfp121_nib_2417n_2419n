@@ -105,7 +105,7 @@ class CreateLoginForm extends JFrame implements ActionListener {
         try {
 
             FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+            ObjectInputStream ois = new ObjectInputStream(fis); 
             list = (ArrayList<Person>) ois.readObject();
             ois.close();
 
