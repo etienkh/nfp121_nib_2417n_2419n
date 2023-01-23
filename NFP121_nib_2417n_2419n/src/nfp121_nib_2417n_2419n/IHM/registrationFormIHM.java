@@ -17,7 +17,6 @@ import nfp121_nib_2417n_2419n.Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -180,7 +179,7 @@ class registrationFormIHM extends JFrame {
             try {
                 PersonFactory personfactory = new PersonFactory();
                 Person person = new Person(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), passwordField.getText());
-                personfactory.createPerson(person, persType);
+                Person personRes = personfactory.getPerson(person, persType);
             } catch (IOException ex) {
                 Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
             }

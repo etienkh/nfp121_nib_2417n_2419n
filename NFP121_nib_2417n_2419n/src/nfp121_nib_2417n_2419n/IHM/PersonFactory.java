@@ -40,7 +40,7 @@ public class PersonFactory implements Serializable {
         return list;
     }
 
-    public void createPerson(Person person, String typePerson) throws FileNotFoundException, IOException {
+    public Person getPerson(Person person, String typePerson) throws FileNotFoundException, IOException {
         Person p;
 
         try {
@@ -70,14 +70,14 @@ public class PersonFactory implements Serializable {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             registrationFormIHM.getFrame().setVisible(false);
             oos.writeObject(personList);
-            
             oos.flush();
             oos.close();
+            return p;
 
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
-
+        return null;
     }
 
     class existUsername extends Exception {
