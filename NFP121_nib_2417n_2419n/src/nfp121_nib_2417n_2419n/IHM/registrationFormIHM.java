@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nfp121_nib_2417n_2419n;
+package nfp121_nib_2417n_2419n.IHM;
+
+import nfp121_nib_2417n_2419n.Model.*;
 
 /**
  *
@@ -15,12 +17,16 @@ package nfp121_nib_2417n_2419n;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.*;
 
-class registrationForm extends JFrame {
+class registrationFormIHM extends JFrame {
 
     // Components of the Form
     private Container c;
-    private JFrame frame;
+    private static JFrame frame;
     private JLabel usernameLab, title;
     private JTextField usernameField, lastNameField, firstNameField;
     private JPasswordField passwordField;
@@ -31,7 +37,7 @@ class registrationForm extends JFrame {
 
     // constructor, to initialize the components
     // with default values.
-    registrationForm() {
+    registrationFormIHM() {
 
         frame = new JFrame("Registration");
         frame.setSize(1000, 300);
@@ -116,6 +122,8 @@ class registrationForm extends JFrame {
         sub.setSize(100, 20);
         sub.setLocation(200, 350);
 
+        sub.addActionListener(new personFactoryActionListener());
+
         c.add(sub);
 
         frame.add(c);
@@ -125,9 +133,63 @@ class registrationForm extends JFrame {
         frame.setVisible(true);
 
     }
+
+    public static Frame getFrame() {
+        return frame;
+    }
+
+    class personFactoryActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent event) {
+            String persType = null;
+            
+                if ((usernameField.getText()).trim().isEmpty()) {
+                    JLabel label = new JLabel("The username can't be empty");
+                    label.setFont(new Font("calibri", Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (firstNameField.getText().trim().isEmpty()) {
+                    JLabel label = new JLabel("The first name can't be empty");
+                    label.setFont(new Font("calibri", Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (lastNameField.getText().trim().isEmpty()) {
+                    JLabel label = new JLabel("The last name can't be empty");
+                    label.setFont(new Font("calibri", Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (passwordField.getText().trim().isEmpty()) {
+                    JLabel label = new JLabel("The password can't be empty");
+                    label.setFont(new Font("calibri", Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            
+
+            if (student.isSelected()) {
+                persType = "student";
+            } else if (teacher.isSelected()) {
+                persType = "teacher";
+            } else {
+                assert false;
+            }
+            try {
+                PersonFactory personfactory = new PersonFactory();
+                Person person = new Person(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), passwordField.getText());
+                Person personRes = personfactory.getPerson(person, persType);
+            } catch (IOException ex) {
+                Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    class requiredFields extends Exception {
+
+        requiredFields(String mes) {
+
+        }
+    }
 }
-// method actionPerformed()
-// to get the action performed
-// by the user and act accordingly
-    
-// Driver Code

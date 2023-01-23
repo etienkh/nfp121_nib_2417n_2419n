@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package nfp121_nib_2417n_2419n;
+package nfp121_nib_2417n_2419n.IHM;
 
 /**
  *
@@ -12,7 +7,12 @@ package nfp121_nib_2417n_2419n;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.lang.Exception;
+import java.util.ArrayList;
+import nfp121_nib_2417n_2419n.Model.Person;
 
 //create CreateLoginForm class to create login form  
 //class extends JFrame to create a window where our component add  
@@ -99,6 +99,21 @@ class CreateLoginForm extends JFrame implements ActionListener {
 
 //create the main class  
     //main() method start  
+  public static ArrayList<Person> readAllPerson() {
+        ArrayList<Person> list = new ArrayList<Person>();
+        File file = new File("person");
+        try {
+
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            list = (ArrayList<Person>) ois.readObject();
+            ois.close();
+
+        } catch (Exception exc) {
+        }
+        return list;
+    }
+  
     public static void main(String arg[]) {
         try {
             //create instance of the CreateLoginForm  
@@ -117,7 +132,8 @@ class regFormActionListener implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
 
-        registrationForm r = new registrationForm();
+        registrationFormIHM r = new registrationFormIHM();
 
     }
 }
+
