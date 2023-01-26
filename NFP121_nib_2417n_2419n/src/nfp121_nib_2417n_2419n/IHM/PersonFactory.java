@@ -20,12 +20,10 @@ import javax.swing.JOptionPane;
 
 public class PersonFactory implements Serializable {
 
-    ArrayList<Person> personList = readAllPerson();
-
     PersonFactory() {
     }
 
-    public ArrayList<Person> readAllPerson() {
+    public static ArrayList<Person> readAllPerson() {
         ArrayList<Person> list = new ArrayList<Person>();
         File file = new File("person");
         try {
@@ -40,23 +38,9 @@ public class PersonFactory implements Serializable {
         return list;
     }
 
-    public Person getPerson(Person person, String typePerson) throws FileNotFoundException, IOException {
+    public static Person getPerson(Person person, String typePerson) throws FileNotFoundException, IOException {
         Person p;
-
-        try {
-            for (Person per : personList) {
-
-                if (per.username.equalsIgnoreCase(person.username)) {          
-                    throw new existUsername(person.username);
-
-                }
-
-            }
-
-        } catch (existUsername eu) {
-            System.out.println(eu);
-        }
-
+        ArrayList<Person> personList = readAllPerson();
         try {
             if (typePerson.equalsIgnoreCase("student")) {
                 p = new Student(person.username, person.firstName, person.lastName, person.password);
@@ -68,7 +52,6 @@ public class PersonFactory implements Serializable {
             File output = new File("person");
             FileOutputStream fos = new FileOutputStream(output);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            registrationFormIHM.getFrame().setVisible(false);
             oos.writeObject(personList);
             oos.flush();
             oos.close();
@@ -79,16 +62,4 @@ public class PersonFactory implements Serializable {
         }
         return null;
     }
-
-    class existUsername extends Exception {
-
-        existUsername(String mes) {
-
-            JLabel label = new JLabel("This username already exist");
-            label.setFont(new Font("calibri", Font.BOLD, 15));
-            JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-            
-        }
-    }
-
 }

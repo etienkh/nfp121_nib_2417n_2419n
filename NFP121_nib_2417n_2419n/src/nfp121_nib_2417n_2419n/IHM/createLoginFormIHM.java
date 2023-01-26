@@ -9,10 +9,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.Exception;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
 import nfp121_nib_2417n_2419n.Model.Person;
+import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
 
 //create CreateLoginForm class to create login form  
 //class extends JFrame to create a window where our component add  
@@ -81,16 +87,22 @@ class CreateLoginForm extends JFrame implements ActionListener {
         String userValue = textField1.getText();        //get user entered username from the textField1  
         String passValue = textField2.getText();        //get user entered pasword from the textField2  
 
+        ArrayList<Person> allPersons = readAllPerson();
         //check whether the credentials are authentic or not  
-        if (userValue.equals("test1@gmail.com") && passValue.equals("test")) {  //if authentic, navigate user to a new page  
+        boolean isPersonExists = allPersons.stream().filter(i -> i.username.equalsIgnoreCase(userValue) && i.password.equalsIgnoreCase(passValue)).count() > 0;
 
-            //create instance of the NewPage  
-            //   loginForm loginform = new loginForm();  
-            //make page visible to the user  
-            //      loginform.setVisible(true);  
-            //create a welcome label and set it to the new page  
-            //    JLabel wel_label = new JLabel("Welcome: "+userValue);  
-            //  loginform.getContentPane().add(wel_label);  
+        if (isPersonExists) {  //if authentic, navigate user to a new page  
+            Person p = allPersons.stream().filter(i -> i.username.equalsIgnoreCase(userValue) && i.password.equalsIgnoreCase(passValue)).findFirst().get();
+            try {
+                Person per = getInstance(p, stud.isSelected() ? "student" : "teacher");
+                HomePage homePage = new HomePage(per);
+                homePage.setVisible(true);
+                JLabel wel_label = new JLabel("Welcome: " + per.getClass());
+                homePage.getContentPane().add(wel_label);
+                homePage.getContentPane().setSize(1000, 1000);
+            } catch (Exception ex) {
+                Logger.getLogger(CreateLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             //show error message  
             System.out.println("Please enter valid username and password");
@@ -99,21 +111,6 @@ class CreateLoginForm extends JFrame implements ActionListener {
 
 //create the main class  
     //main() method start  
-  public static ArrayList<Person> readAllPerson() {
-        ArrayList<Person> list = new ArrayList<Person>();
-        File file = new File("person");
-        try {
-
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            list = (ArrayList<Person>) ois.readObject();
-            ois.close();
-
-        } catch (Exception exc) {
-        }
-        return list;
-    }
-  
     public static void main(String arg[]) {
         try {
             //create instance of the CreateLoginForm  
@@ -136,4 +133,3 @@ class regFormActionListener implements ActionListener {
 
     }
 }
-

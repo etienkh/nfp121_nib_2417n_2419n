@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
+import static nfp121_nib_2417n_2419n.IHM.PersonFactory.getPerson;
+import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
 
 class registrationFormIHM extends JFrame {
 
@@ -142,32 +144,31 @@ class registrationFormIHM extends JFrame {
 
         public void actionPerformed(ActionEvent event) {
             String persType = null;
-            
-                if ((usernameField.getText()).trim().isEmpty()) {
-                    JLabel label = new JLabel("The username can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (firstNameField.getText().trim().isEmpty()) {
-                    JLabel label = new JLabel("The first name can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (lastNameField.getText().trim().isEmpty()) {
-                    JLabel label = new JLabel("The last name can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (passwordField.getText().trim().isEmpty()) {
-                    JLabel label = new JLabel("The password can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            
+
+            if ((usernameField.getText()).trim().isEmpty()) {
+                JLabel label = new JLabel("The username can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (firstNameField.getText().trim().isEmpty()) {
+                JLabel label = new JLabel("The first name can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (lastNameField.getText().trim().isEmpty()) {
+                JLabel label = new JLabel("The last name can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (passwordField.getText().trim().isEmpty()) {
+                JLabel label = new JLabel("The password can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (student.isSelected()) {
                 persType = "student";
@@ -177,19 +178,29 @@ class registrationFormIHM extends JFrame {
                 assert false;
             }
             try {
+                ArrayList<Person> personList = readAllPerson();
+                for (Person per : personList) {
+                    if (per.username.equalsIgnoreCase(usernameField.getText())) {
+                        throw new existUsername(usernameField.getText());
+                    }
+                }
                 PersonFactory personfactory = new PersonFactory();
                 Person person = new Person(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), passwordField.getText());
-                Person personRes = personfactory.getPerson(person, persType);
-            } catch (IOException ex) {
+                Person personRes = getPerson(person, persType);
+                registrationFormIHM.getFrame().setVisible(false);
+            } catch (Exception ex) {
                 Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    class requiredFields extends Exception {
+    public static class existUsername extends Exception {
 
-        requiredFields(String mes) {
+        existUsername(String mes) {
 
+            JLabel label = new JLabel("This username already exist");
+            label.setFont(new Font("calibri", Font.BOLD, 15));
+            JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
