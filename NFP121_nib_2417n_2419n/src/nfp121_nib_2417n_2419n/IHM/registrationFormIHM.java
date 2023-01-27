@@ -17,7 +17,10 @@ import nfp121_nib_2417n_2419n.Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
@@ -34,6 +37,7 @@ class registrationFormIHM extends JFrame {
     private ButtonGroup gengp;
     private JLabel passwordLab, firstNameLab, lastNameLab;
     private JButton sub;
+    ArrayList<Person> personList = readAllPerson();
 
     // constructor, to initialize the components
     // with default values.
@@ -142,32 +146,39 @@ class registrationFormIHM extends JFrame {
 
         public void actionPerformed(ActionEvent event) {
             String persType = null;
-            
-                if ((usernameField.getText()).trim().isEmpty()) {
-                    JLabel label = new JLabel("The username can't be empty");
+
+            if ((usernameField.getText()).trim().isEmpty()) {
+                JLabel label = new JLabel("The username can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (firstNameField.getText().trim().isEmpty()) {
+                JLabel label = new JLabel("The first name can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (lastNameField.getText().trim().isEmpty()) {
+                JLabel label = new JLabel("The last name can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (passwordField.getText().trim().isEmpty()) {
+                JLabel label = new JLabel("The password can't be empty");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            for (Person per : personList) {
+                if (per.username.trim().equalsIgnoreCase(usernameField.getText().trim())) {
+                    JLabel label = new JLabel("This username already exist");
                     label.setFont(new Font("calibri", Font.BOLD, 15));
                     JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (firstNameField.getText().trim().isEmpty()) {
-                    JLabel label = new JLabel("The first name can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (lastNameField.getText().trim().isEmpty()) {
-                    JLabel label = new JLabel("The last name can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (passwordField.getText().trim().isEmpty()) {
-                    JLabel label = new JLabel("The password can't be empty");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            
+            }
 
             if (student.isSelected()) {
                 persType = "student";
@@ -184,6 +195,21 @@ class registrationFormIHM extends JFrame {
                 Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public ArrayList<Person> readAllPerson() {
+        ArrayList<Person> list = new ArrayList<Person>();
+        File file = new File("person");
+        try {
+
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            list = (ArrayList<Person>) ois.readObject();
+            ois.close();
+
+        } catch (Exception exc) {
+        }
+        return list;
     }
 
     class requiredFields extends Exception {

@@ -44,14 +44,7 @@ public class PersonFactory implements Serializable {
         Person p;
 
         try {
-            for (Person per : personList) {
-                if (per.username.trim().equalsIgnoreCase(person.username.trim())) {
-                    JLabel label = new JLabel("This username already exist");
-                    label.setFont(new Font("calibri", Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                    return null;
-                }
-            }
+           
             if (typePerson.equalsIgnoreCase("student")) {
                 p = new Student(person.username, person.firstName, person.lastName, person.password);
             } else {

@@ -1,5 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package nfp121_nib_2417n_2419n.IHM;
 
+/**
+ *
+ * @author Georges
+ */
 /**
  *
  * @author User
@@ -10,14 +19,13 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.lang.Exception;
 import java.util.ArrayList;
 import nfp121_nib_2417n_2419n.Model.Person;
 
 //create CreateLoginForm class to create login form  
 //class extends JFrame to create a window where our component add  
 //class implements ActionListener to perform an action on button click  
-class CreateLoginForm extends JFrame implements ActionListener {
+class loginForm extends JFrame implements ActionListener {
 
     //initialize button, panel, label, and text field  
     private JButton b1, b2;
@@ -27,7 +35,7 @@ class CreateLoginForm extends JFrame implements ActionListener {
     private JRadioButton stud, teach;
 
     //calling constructor  
-    CreateLoginForm() {
+    loginForm() {
 
         //create label for username   
         userLabel = new JLabel();
@@ -68,6 +76,9 @@ class CreateLoginForm extends JFrame implements ActionListener {
         newPanel.add(newPanel1);
         newPanel.add(radioPanel);
         newPanel.add(newPanel2);
+        this.setSize(1000, 100);  //set size of the frame  
+        this.setVisible(true);  //make form visible to the user 
+        this.setLocationRelativeTo(null);
 
         this.add(newPanel, BorderLayout.CENTER);
         //perform action on button click   
@@ -99,7 +110,7 @@ class CreateLoginForm extends JFrame implements ActionListener {
 
 //create the main class  
     //main() method start  
-  public static ArrayList<Person> readAllPerson() {
+    public static ArrayList<Person> readAllPerson() {
         ArrayList<Person> list = new ArrayList<Person>();
         File file = new File("person");
         try {
@@ -113,21 +124,6 @@ class CreateLoginForm extends JFrame implements ActionListener {
         }
         return list;
     }
-  
-    public static void main(String arg[]) {
-        try {
-            //create instance of the CreateLoginForm  
-            CreateLoginForm form = new CreateLoginForm();
-            form.setSize(1000, 100);  //set size of the frame  
-            form.setVisible(true);  //make form visible to the user 
-            form.setLocationRelativeTo(null);
-        } catch (Exception e) {
-            //handle exception   
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-}
-
 class regFormActionListener implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
@@ -136,4 +132,7 @@ class regFormActionListener implements ActionListener {
 
     }
 }
+}
+
+
 
