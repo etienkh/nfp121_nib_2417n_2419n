@@ -1,19 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nfp121_nib_2417n_2419n.IHM;
 
 import nfp121_nib_2417n_2419n.Model.*;
 
-/**
- *
- * @author Georges
- */
-// Java program to implement
-// a Simple Registration Form
-// using Java Swing
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -145,7 +133,7 @@ class registrationFormIHM extends JFrame {
         public void actionPerformed(ActionEvent event) {
             String persType = null;
 
-            if ((usernameField.getText()).trim().isEmpty()) {
+            if (usernameField.getText().trim().isEmpty()) {
                 JLabel label = new JLabel("The username can't be empty");
                 label.setFont(new Font("calibri", Font.BOLD, 15));
                 JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
@@ -195,9 +183,7 @@ class registrationFormIHM extends JFrame {
     }
 
     public static class existUsername extends Exception {
-
         existUsername(String mes) {
-
             JLabel label = new JLabel("This username already exist");
             label.setFont(new Font("calibri", Font.BOLD, 15));
             JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);

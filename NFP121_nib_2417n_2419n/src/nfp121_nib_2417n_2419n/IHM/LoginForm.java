@@ -1,9 +1,5 @@
 package nfp121_nib_2417n_2419n.IHM;
 
-/**
- *
- * @author User
- */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,12 +16,8 @@ import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
 import nfp121_nib_2417n_2419n.Model.Person;
 import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
 
-//create CreateLoginForm class to create login form  
-//class extends JFrame to create a window where our component add  
-//class implements ActionListener to perform an action on button click  
-class CreateLoginForm extends JFrame implements ActionListener {
+class LoginForm extends JFrame implements ActionListener {
 
-    //initialize button, panel, label, and text field  
     private JButton b1, b2;
     private JPanel newPanel, newPanel1, radioPanel, newPanel2;
     private JLabel userLabel, passLabel;
@@ -33,7 +25,7 @@ class CreateLoginForm extends JFrame implements ActionListener {
     private JRadioButton stud, teach;
 
     //calling constructor  
-    CreateLoginForm() {
+    LoginForm() {
 
         //create label for username   
         userLabel = new JLabel();
@@ -74,11 +66,14 @@ class CreateLoginForm extends JFrame implements ActionListener {
         newPanel.add(newPanel1);
         newPanel.add(radioPanel);
         newPanel.add(newPanel2);
+        this.setSize(1000, 100);  //set size of the frame  
 
         this.add(newPanel, BorderLayout.CENTER);
+        this.setLocationRelativeTo(null);
         //perform action on button click   
         b1.addActionListener(this);     //add action listener to button  
         setTitle("LOGIN FORM");         //set title to the login form  
+        this.setVisible(true);  //make form visible to the user 
     }
 
     //define abstract method actionPerformed() which will be called on button click   
@@ -96,31 +91,11 @@ class CreateLoginForm extends JFrame implements ActionListener {
             try {
                 Person per = getInstance(p, stud.isSelected() ? "student" : "teacher");
                 HomePage homePage = new HomePage(per);
-                homePage.setVisible(true);
-                JLabel wel_label = new JLabel("Welcome: " + per.getClass());
-                homePage.getContentPane().add(wel_label);
-                homePage.getContentPane().setSize(1000, 1000);
             } catch (Exception ex) {
-                Logger.getLogger(CreateLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            //show error message  
             System.out.println("Please enter valid username and password");
-        }
-    }
-
-//create the main class  
-    //main() method start  
-    public static void main(String arg[]) {
-        try {
-            //create instance of the CreateLoginForm  
-            CreateLoginForm form = new CreateLoginForm();
-            form.setSize(1000, 100);  //set size of the frame  
-            form.setVisible(true);  //make form visible to the user 
-            form.setLocationRelativeTo(null);
-        } catch (Exception e) {
-            //handle exception   
-            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }

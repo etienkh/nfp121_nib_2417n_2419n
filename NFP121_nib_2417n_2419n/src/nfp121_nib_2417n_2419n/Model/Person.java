@@ -44,7 +44,7 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.password = password;
 
-        if (readAllPerson().size() == 0) {
+        if (readAllPerson().isEmpty()) {
             id = 1;
         } else {
             id = readAllPerson().get(readAllPerson().size() - 1).id + 1;
