@@ -1,0 +1,35 @@
+{
+    "quiz_title": "Simple Quiz",
+    "questions": [
+        {
+            "question": "What is the capital of France?",
+            "options": [
+                "Paris",
+                "London",
+                "Rome",
+                "Madrid"
+            ],
+            "answer": "Paris"
+        },
+        {
+            "question": "What is the largest planet in our solar system?",
+            "options": [
+                "Earth",
+                "Jupiter",
+                "Mars",
+                "Saturn"
+            ],
+            "answer": "Jupiter"
+        },
+        {
+            "question": "What is the smallest country in the world?",
+            "options": [
+                "Vatican City",
+                "Monaco",
+                "Nauru",
+                "Tuvalu"
+            ],
+            "answer": "Vatican City"
+        }
+    ]
+}
