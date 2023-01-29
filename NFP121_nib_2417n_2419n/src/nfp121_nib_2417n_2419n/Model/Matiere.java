@@ -5,13 +5,14 @@
  */
 package nfp121_nib_2417n_2419n.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Georges
  */
-public class Matiere {
+public class Matiere implements Serializable {
 
     private String code;
     private String name;
@@ -24,17 +25,17 @@ public class Matiere {
     private ArrayList<String> documents;
     private ArrayList<String> videos;
 
-    Matiere() {
+    public Matiere(String code, String name, int credit, ArrayList<String> sessions, ArrayList<String> syllabus, ArrayList<String> objectifs, ArrayList<String> chapitres, ArrayList<String> documents, ArrayList<String> videos) {
         this.code = code;
         this.name = name;
         this.credit = credit;
         this.price = 12;
-        this.sessions = new ArrayList<String>();
-        this.syllabus = new ArrayList<String>();
-        this.objectifs = new ArrayList<String>();
-        this.chapitres = new ArrayList<String>();
-        this.documents = new ArrayList<String>();
-        this.videos = new ArrayList<String>();
+        this.sessions = sessions;
+        this.syllabus = syllabus;
+        this.objectifs = objectifs;
+        this.chapitres = chapitres;
+        this.documents = documents;
+        this.videos = videos;
     }
 
     ArrayList<String> getSessions() {
