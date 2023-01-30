@@ -166,10 +166,12 @@ class registrationFormIHM extends JFrame {
                 assert false;
             }
             try {
-                ArrayList<Person> personList = readAllPerson();
-                for (Person per : personList) {
+                for (Person per : readAllPerson()) {
                     if (per.username.equalsIgnoreCase(usernameField.getText())) {
-                        throw new existUsername(usernameField.getText());
+                        JLabel label = new JLabel("This user name already exist!");
+                        label.setFont(new Font("calibri", Font.BOLD, 15));
+                        JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 }
                 PersonFactory personfactory = new PersonFactory();
@@ -179,14 +181,6 @@ class registrationFormIHM extends JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-    }
-
-    public static class existUsername extends Exception {
-        existUsername(String mes) {
-            JLabel label = new JLabel("This username already exist");
-            label.setFont(new Font("calibri", Font.BOLD, 15));
-            JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

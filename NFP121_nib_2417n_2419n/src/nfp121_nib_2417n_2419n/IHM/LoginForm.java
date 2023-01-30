@@ -102,7 +102,10 @@ class LoginForm extends JFrame implements ActionListener {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            System.out.println("Please enter valid username and password");
+             JLabel label = new JLabel("The user name or password is invalid!");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
         }
     }
 }
