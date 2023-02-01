@@ -3,14 +3,15 @@ package nfp121_nib_2417n_2419n.Model;
 import java.util.List;
 
 public class Question {
+
     private String question;
-    private List<String> options;
-    private String answer;
+    private List<String> choices;
+    private String correctChoice;
 
     public Question(String question, List<String> options, String answer) {
         this.question = question;
-        this.options = options;
-        this.answer = answer;
+        this.choices = options;
+        this.correctChoice = answer;
     }
 
     public String getQuestion() {
@@ -22,18 +23,30 @@ public class Question {
     }
 
     public List<String> getOptions() {
-        return options;
+        return choices;
     }
 
     public void setOptions(List<String> options) {
-        this.options = options;
+        this.choices = options;
     }
 
     public String getAnswer() {
-        return answer;
+        return correctChoice;
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.correctChoice = answer;
+    }
+
+    public List<String> getChoices() {
+        return choices;
+    }
+
+    public String getCorrectChoice() {
+        return correctChoice;
+    }
+
+    public boolean isCorrect(String choice) {
+        return correctChoice.equals(choice);
     }
 }

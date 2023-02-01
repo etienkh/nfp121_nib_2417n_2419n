@@ -24,15 +24,13 @@ public class TeacherHomePage extends JFrame implements ActionListener {
         tabbedPane.addTab("Course", new CourseSection());
         tabbedPane.addTab("Sessions", new JLabel("This is tab 2"));
         tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
-        tabbedPane.addTab("Quizes", new QuizSection());
-        
-        
-        
+        tabbedPane.addTab("Quizes", QuizSection.newQuiz());
+
         // add the JTabbedPane to the frame
         this.add(tabbedPane);
 
         // set the size and location of the frame
-        this.setSize(1000, 500);
+        this.setSize(1000, 800);
         this.setLocationRelativeTo(null);
 
         // set the default close operation and make the frame visible
@@ -43,9 +41,4 @@ public class TeacherHomePage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) //pass action listener as a parameter  
     {
     }
-public static void main(String[] args){
-        TeacherHomePage thp = new TeacherHomePage(null);
-    }
 }
-
-

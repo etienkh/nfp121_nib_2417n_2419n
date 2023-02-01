@@ -1,5 +1,6 @@
 package nfp121_nib_2417n_2419n.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz {
@@ -10,6 +11,10 @@ public class Quiz {
     public Quiz(String quizTitle, List<Question> questions) {
         this.quizTitle = quizTitle;
         this.questions = questions;
+    }
+
+    public Quiz() {
+        questions = new ArrayList<>();
     }
 
     public String getQuizTitle() {
@@ -32,4 +37,18 @@ public class Quiz {
         this.questions.add(question);
     }
 
+    public void clear() {
+        questions.clear();
+    }
+
+    public String toString() {
+        String s = "";
+        int index = 1;
+        for (Question el : questions) {
+            s += "Question " + index + ": " + el.getQuestion() + "\nChoices :\n" + String.join("\n", el.getChoices()) + "\nCorrect choice:" + el.getCorrectChoice();
+            s += "\n\n";
+            index++;
+        };
+        return s;
+    }
 }
