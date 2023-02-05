@@ -1,6 +1,5 @@
 package nfp121_nib_2417n_2419n.IHM;
 
-import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,9 +12,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
+import static nfp121_nib_2417n_2419n.Factory.PersonFactory.readAllPerson;
 import nfp121_nib_2417n_2419n.Model.Person;
-import nfp121_nib_2417n_2419n.Model.Student;
 import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
 
 class LoginForm extends JFrame implements ActionListener {
@@ -92,20 +90,16 @@ class LoginForm extends JFrame implements ActionListener {
             Person p = allPersons.stream().filter(i -> i.username.equalsIgnoreCase(userValue) && i.password.equalsIgnoreCase(passValue)).findFirst().get();
             try {
                 Person per = getInstance(p, stud.isSelected() ? "student" : "teacher");
-                if (per.getClass() == Student.class) {
-                    System.out.println("Student Home Page");
-                } else {
-                    TeacherHomePage teacherHomePage = new TeacherHomePage(per);
-                }
-                this.dispose();
+                HomePage homePage = new HomePage(per);
             } catch (Exception ex) {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-             JLabel label = new JLabel("The user name or password is invalid!");
-                label.setFont(new Font("calibri", Font.BOLD, 15));
-                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            JLabel label = new JLabel("Please enter valid username and password");
+            label.setFont(new Font("calibri", Font.BOLD, 15));
+            JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+
         }
     }
 }

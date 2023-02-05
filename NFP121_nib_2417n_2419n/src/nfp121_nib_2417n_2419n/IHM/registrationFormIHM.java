@@ -1,16 +1,16 @@
 package nfp121_nib_2417n_2419n.IHM;
 
+import nfp121_nib_2417n_2419n.Factory.PersonFactory;
 import nfp121_nib_2417n_2419n.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.getPerson;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
+import static nfp121_nib_2417n_2419n.Factory.PersonFactory.getPerson;
+import static nfp121_nib_2417n_2419n.Factory.PersonFactory.readAllPerson;
 
 class registrationFormIHM extends JFrame {
 
@@ -166,7 +166,8 @@ class registrationFormIHM extends JFrame {
                 assert false;
             }
             try {
-                for (Person per : readAllPerson()) {
+                ArrayList<Person> personList = readAllPerson();
+                for (Person per : personList) {
                     if (per.username.equalsIgnoreCase(usernameField.getText())) {
                         JLabel label = new JLabel("This user name already exist!");
                         label.setFont(new Font("calibri", Font.BOLD, 15));
@@ -183,4 +184,5 @@ class registrationFormIHM extends JFrame {
             }
         }
     }
+
 }
