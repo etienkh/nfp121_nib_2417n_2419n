@@ -1,7 +1,7 @@
 package nfp121_nib_2417n_2419n.Singleton;
 
 import java.io.IOException;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.getPerson;
+import static nfp121_nib_2417n_2419n.Factory.PersonFactory.getPerson;
 import nfp121_nib_2417n_2419n.Model.Person;
 
 public class PersonSingleton {
@@ -11,7 +11,7 @@ public class PersonSingleton {
         public static Person getInstance(Person p, String typePerson) throws IOException{
             if(person != null)
                 return person;
-            person = getPerson(p, typePerson);
+            person = p;
             return person;
         }
 }
