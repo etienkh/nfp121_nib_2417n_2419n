@@ -13,8 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import nfp121_nib_2417n_2419n.Model.Teacher;
-import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import nfp121_nib_2417n_2419n.Model.Person;
 
 /**
@@ -33,9 +34,6 @@ public class InputOutputPerson implements Serializable {
             FileOutputStream fos = new FileOutputStream(output);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(personList);
-            if (p.getClass() == Teacher.class) {
-                new TeacherHomePage((Teacher) p);
-            }
             oos.flush();
             oos.close();
         }
@@ -55,5 +53,24 @@ public class InputOutputPerson implements Serializable {
         } catch (Exception exc) {
         }
         return list;
+    }
+
+    public static void updatePerson(Person p) throws FileNotFoundException, IOException {
+        try {
+
+            for (int i = 0; i < personList.size(); i++) {
+                if (p.username.equalsIgnoreCase(personList.get(i).username)) {
+                    personList.set(i, p);
+                }
+            }
+            File output = new File("person");
+            FileOutputStream fos = new FileOutputStream(output);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(personList);
+            oos.flush();
+            oos.close();
+        } catch (Exception e) {
+            Logger.getLogger(InputOutputPerson.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 }

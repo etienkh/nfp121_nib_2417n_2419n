@@ -1,23 +1,38 @@
 package nfp121_nib_2417n_2419n.Teacher;
 
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+
+import java.awt.Container;
+import java.awt.Desktop;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
-import nfp121_nib_2417n_2419n.Model.Teacher;
+
 import nfp121_nib_2417n_2419n.Model.Matiere;
 import nfp121_nib_2417n_2419n.Model.Person;
+import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.TemplateMethod.ThreeCreditsCoursesQuiz;
+import nfp121_nib_2417n_2419n.TemplateMethod.TwoCreditsCoursesQuiz;
 
 /**
  *
@@ -25,12 +40,11 @@ import nfp121_nib_2417n_2419n.Model.Person;
  */
 public class CourseSection extends Container {
 
-    private JLabel nameLab, priceLab, codeLab, creditLab, title, docLab;
+    private JLabel nameLab, priceLab, codeLab, creditLab, title;
     private JTextField nameField, priceField, codeField;
     private JRadioButton credit2Radio, credit3Radio;
     private ButtonGroup radioGroup;
     private JButton updateCourseBtn;
-    private Container c;
     private JTable objectifTab, syllabusTab, chapitreTab;
     private DefaultTableModel objectifModel, syllabusModel, chapitreModel;
     private JScrollPane objectifPane, syllabusPane, chapitrePane, documentScrollPane;
@@ -94,9 +108,8 @@ public class CourseSection extends Container {
         if (teacher.getMatiere() != null) {
             if (teacher.getMatiere().getCredit() == 3) {
                 credit3Radio.setSelected(true);
-            }
-            else{
-              credit3Radio.setSelected(true);   
+            } else {
+                credit3Radio.setSelected(true);
             }
         }
         this.add(credit3Radio);
@@ -131,9 +144,10 @@ public class CourseSection extends Container {
         updateCourseBtn.addActionListener(new updateCourseActionListener());
         this.add(updateCourseBtn);
 
-        String[] columnObjectif = {"Objectif"};
+        String[] columnObjectif = { "Objectif" };
         String objectifData[][] = new String[11][1];
-        if (teacher.getMatiere() != null) {;
+        if (teacher.getMatiere() != null) {
+            ;
             for (int i = 0; i < objectifData.length && i < teacher.getMatiere().getObjectifs().size(); i++) {
 
                 objectifData[i][0] = teacher.getMatiere().getObjectifs().get(i);
@@ -148,16 +162,17 @@ public class CourseSection extends Container {
         objectifPane.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    objectifModel.addRow(new Object[]{""});
+                    objectifModel.addRow(new Object[] { "" });
                 }
             }
 
         });
         this.add(objectifPane);
 
-        String[] columnSyllabus = {"syllabus"};
+        String[] columnSyllabus = { "syllabus" };
         String syllabusData[][] = new String[11][1];
-        if (teacher.getMatiere() != null) {;
+        if (teacher.getMatiere() != null) {
+            ;
             for (int i = 0; i < syllabusData.length && i < teacher.getMatiere().getSyllabus().size(); i++) {
 
                 syllabusData[i][0] = teacher.getMatiere().getSyllabus().get(i);
@@ -174,18 +189,18 @@ public class CourseSection extends Container {
 
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    syllabusModel.addRow(new Object[]{""});
+                    syllabusModel.addRow(new Object[] { "" });
                 }
             }
 
-        }
-        );
+        });
         this.add(syllabusPane);
 
-        String[] columnChapitre = {"chapitre"};
+        String[] columnChapitre = { "chapitre" };
 
         String chapitreData[][] = new String[11][1];
-        if (teacher.getMatiere() != null) {;
+        if (teacher.getMatiere() != null) {
+            ;
             for (int i = 0; i < chapitreData.length && i < teacher.getMatiere().getChapitres().size(); i++) {
 
                 chapitreData[i][0] = teacher.getMatiere().getChapitres().get(i);
@@ -199,7 +214,7 @@ public class CourseSection extends Container {
         chapitrePane.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    chapitreModel.addRow(new Object[]{""});
+                    chapitreModel.addRow(new Object[] { "" });
                 }
             }
 
@@ -242,7 +257,6 @@ public class CourseSection extends Container {
         addDocumentBtn.setLocation(1390, 300);
 
         addDocumentBtn.addActionListener(new AddDocumentListener());
-        System.out.println(teacher.getMatiere());
         this.add(addDocumentBtn);
 
     }
@@ -272,6 +286,17 @@ public class CourseSection extends Container {
             String code = codeField.getText();
 
             newMatiere = new Matiere(code, name, credit);
+            if (teacher.getMatiere() != null && teacher.getMatiere().getQuizzes().size() > 0) {
+                newMatiere.setQuizzes(teacher.getMatiere().getQuizzes());
+            }
+            switch (credit) {
+                case 2:
+                    newMatiere.setQuizTemplate(new TwoCreditsCoursesQuiz());
+                    break;
+                case 3:
+                    newMatiere.setQuizTemplate(new ThreeCreditsCoursesQuiz());
+                    break;
+            }
             teacher.setMatiere(newMatiere);
             for (int row = 0; row < objectifTab.getRowCount(); row++) {
                 teacher.getMatiere().getObjectifs().add((String) objectifTab.getValueAt(row, 0));
@@ -285,10 +310,14 @@ public class CourseSection extends Container {
             for (int row = 0; row < documentModel.getSize(); row++) {
                 teacher.getMatiere().getDocuments().add((File) documentModel.getElementAt(row));
             }
+
+            if (teacher.getMatiere().getQuizzes().size() > 0) {
+                teacher.getMatiere().getQuizTemplate().GradeQuiz(teacher);
+            }
+
             for (int i = 0; i < personList.size(); i++) {
                 if (teacher.username.equalsIgnoreCase(personList.get(i).username)) {
                     personList.set(i, teacher);
-                    System.out.println("True");
                 }
                 priceField.setText(Integer.toString(teacher.getMatiere().getPrice()));
             }
@@ -311,11 +340,10 @@ public class CourseSection extends Container {
 
     class AddDocumentListener implements ActionListener {
 
-        public void actionPerformed(ActionEvent ae) //pass action listener as a parameter  
+        public void actionPerformed(ActionEvent ae) // pass action listener as a parameter
         {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.showOpenDialog(null);
-            File file = fileChooser.getSelectedFile();
             File selectedFile = fileChooser.getSelectedFile();
             documentModel.addElement(selectedFile);
 

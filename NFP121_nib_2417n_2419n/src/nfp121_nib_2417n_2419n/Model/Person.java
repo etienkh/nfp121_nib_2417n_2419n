@@ -5,16 +5,9 @@
  */
 package nfp121_nib_2417n_2419n.Model;
 
-/**
- *
- * @author Georges
- */
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
 import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+
+import java.io.Serializable;
 public class Person implements Serializable {
 
     public int id;

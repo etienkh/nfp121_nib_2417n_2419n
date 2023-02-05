@@ -8,12 +8,14 @@ package nfp121_nib_2417n_2419n.Model;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import nfp121_nib_2417n_2419n.MVC.MyObservable;
+import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 
 /**
  *
  * @author Georges
  */
-public class Matiere implements Serializable {
+public class Matiere extends MyObservable implements Serializable{
 
     private String code;
     private String name;
@@ -24,6 +26,60 @@ public class Matiere implements Serializable {
     private ArrayList<String> objectifs;
     private ArrayList<String> chapitres;
     private ArrayList<File> documents;
+    private ArrayList<String> videos;
+    private ArrayList<Quiz> quizzes;
+    private QuizTemplate quizTemplate;
+
+    public QuizTemplate getQuizTemplate() {
+        return quizTemplate;
+    }
+
+    public void setQuizTemplate(QuizTemplate quizTemplate) {
+        this.quizTemplate = quizTemplate;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public ArrayList<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(ArrayList<Quiz> quizzes) {
+        this.quizzes = quizzes;
+        setChanged();
+        notifyObservers();
+    }
+
     //private ArrayList<String> videos;
 
     public Matiere(String code, String name, int credit) {
@@ -36,23 +92,8 @@ public class Matiere implements Serializable {
         this.objectifs = new ArrayList<String>();
         this.chapitres = new ArrayList<String>();
         this.documents = new ArrayList<File>();
+        this.quizzes = new ArrayList<Quiz>();
         //   this.videos = new ArrayList<String>();
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCredit() {
-        return credit;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
    public ArrayList<String> getSessions() {

@@ -1,13 +1,13 @@
 package nfp121_nib_2417n_2419n.Teacher;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import nfp121_nib_2417n_2419n.Model.Person;
+
 import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
+
 
 public class TeacherHomePage extends JFrame  {
 
@@ -15,21 +15,16 @@ public class TeacherHomePage extends JFrame  {
     public JPanel newPanel1;
     public JPanel newPanel;
 
-    public TeacherHomePage(Person person) {
+    public TeacherHomePage(Teacher teacher) {
         JTabbedPane tabbedPane = new JTabbedPane();
-
-        // add tabs to the JTabbedPane
-        tabbedPane.addTab("Course", new CourseSection((Teacher) person));
+        tabbedPane.addTab("Course", new CourseSection(teacher));
         tabbedPane.addTab("Sessions", new JLabel("This is tab 2"));
         tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
-        tabbedPane.addTab("Quizes", new QuizSection());
-        
-       
-        
-        // add the JTabbedPane to the frame
+        tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
+        tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
+
         this.add(tabbedPane);
 
-        // set the size and location of the frame
         this.setSize(1700, 800);
         this.setLocationRelativeTo(null);
 
@@ -40,5 +35,3 @@ public class TeacherHomePage extends JFrame  {
 
  
 }
-
-
