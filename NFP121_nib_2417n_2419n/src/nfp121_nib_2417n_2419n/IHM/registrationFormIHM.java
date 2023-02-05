@@ -1,17 +1,27 @@
 package nfp121_nib_2417n_2419n.IHM;
 
-import nfp121_nib_2417n_2419n.Factory.PersonFactory;
-import nfp121_nib_2417n_2419n.Model.*;
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.*;
-import static nfp121_nib_2417n_2419n.Factory.PersonFactory.getPerson;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import nfp121_nib_2417n_2419n.Factory.PersonFactory;
+import nfp121_nib_2417n_2419n.Model.Person;
+import nfp121_nib_2417n_2419n.Model.Teacher;
 import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
 
 class registrationFormIHM extends JFrame {
@@ -180,10 +190,10 @@ class registrationFormIHM extends JFrame {
                 Person personRes = PersonFactory.getPerson(person, persType);
                 InputOutputPerson.writePerson(personRes);
                 if(personRes.getClass() == Teacher.class){
-                    new TeacherHomePage(personRes);
+                    new TeacherHomePage((Teacher)personRes);
                 }
           
-                registrationFormIHM.getFrame().setVisible(false);
+                registrationFormIHM.getFrame().dispose();
             } catch (Exception ex) {
                 Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
             }

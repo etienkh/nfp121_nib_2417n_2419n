@@ -1,34 +1,34 @@
 package nfp121_nib_2417n_2419n.Teacher;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
+
+import nfp121_nib_2417n_2419n.IHM.InputOutputPerson;
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.MVC.MyObserver;
-import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Question;
 import nfp121_nib_2417n_2419n.Model.Quiz;
 import nfp121_nib_2417n_2419n.Model.Teacher;
 
 class QuizView extends JFrame implements MyObserver {
 
-    private JLabel questionLabel;
-    private JTextField questionField;
-    private JLabel choiceLabel;
-    private JTextField choiceField;
     private JLabel correctChoiceLabel;
     private JTextField correctChoiceField;
-    private JButton addChoiceButton;
-    private JButton addQuestionButton;
-    private JButton resetButton;
-    private JButton finishButton;
     private JTextArea resultArea;
-    private JPanel panel, panel1, panel2, panel3, panel4, panel5;
+    private JPanel panel;
 
     private Quiz quiz;
     private Question question;
@@ -132,7 +132,7 @@ class QuizController {
     private List<JTextField> choiceFields = new ArrayList<>();
     JPanel panel;
     JTextField questionField, choiceField, correctChoiceField;
-    private JButton newQuizBtn;
+    private JButton newQuizBtn, addChoiceBtn, resetBtn, finishBtn, addQuestionBtn;
 
     public QuizController(Quiz quiz, Question question, Teacher teacher) {
         this.quiz = quiz;
@@ -147,10 +147,10 @@ class QuizController {
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
 
-        JButton addChoiceBtn = getAddChoiceButton();
-        JButton resetBtn = getResetButton();
-        JButton finishBtn = getFinishButton();
-        JButton addQuestionBtn = getAddQuestionButton();
+        addChoiceBtn = getAddChoiceButton();
+        resetBtn = getResetButton();
+        finishBtn = getFinishButton();
+        addQuestionBtn = getAddQuestionButton();
 
         questionField = getQuestionField();
         choiceField = getChoiceField();
@@ -247,7 +247,6 @@ class QuizController {
     private class AddChoiceListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            String questionTitle = questionField.getText();
             String choice = choiceField.getText();
             choices.add(choice);
             clearChoices();
@@ -291,11 +290,26 @@ class QuizController {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (quiz.isValid()) {
-                getPanel().setEnabled(false);
+                finishBtn.setEnabled(false);
+                addQuestionBtn.setEnabled(false);
+                resetBtn.setEnabled(false);
+                addChoiceBtn.setEnabled(false);
                 newQuizBtn.setVisible(true);
                 ArrayList<Quiz> quizzes = teacher.getMatiere().getQuizzes();
-                quizzes.add(quiz);
+                ArrayList<Question> cloneQuestions = new ArrayList<Question>();
+                for(Question question : quiz.getQuestions()){
+                    Question cloneQuestion = new Question(question.getQuestion(), question.getOptions(), question.getAnswer());
+                    cloneQuestions.add(cloneQuestion);
+                }
+                Quiz clone = new Quiz(quiz.getQuizTitle(), cloneQuestions);
+                quizzes.add(clone);
                 teacher.getMatiere().setQuizzes(quizzes);
+                teacher.getMatiere().getQuizTemplate().GradeQuiz(teacher);
+                try {
+                    InputOutputPerson.updatePerson(teacher);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -305,7 +319,11 @@ class QuizController {
         @Override
         public void actionPerformed(ActionEvent e) {
             quiz.clear();
-            getPanel().setEnabled(true);
+            finishBtn.setEnabled(true);
+            addQuestionBtn.setEnabled(true);
+            resetBtn.setEnabled(true);
+            addChoiceBtn.setEnabled(true);
+            newQuizBtn.setVisible(false);
             questionField.setText("");
             choiceField.setText("");
             correctChoiceField.setText("");

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -12,8 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.MVC.MyObserver;
+import nfp121_nib_2417n_2419n.Model.Quiz;
 import nfp121_nib_2417n_2419n.Model.Teacher;
 
 public class ViewQuizzes {
@@ -22,6 +26,8 @@ public class ViewQuizzes {
 
         private Teacher teacher;
         private JPanel panel;
+        private DefaultTableModel model;
+        private JTable table;
 
         public JPanel getPanel() {
             return panel;
@@ -33,18 +39,21 @@ public class ViewQuizzes {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
 
-            String[] columns = {"Number", "Text"};
-            Object[][] data = {
-                {1, "Text 1"},
-                {2, "Text 2"},
-                {3, "Text 3"},
-                {4, "Text 4"},
-                {5, "Text 5"},
-                {6, "Text 6"}
-            };
+            String[] columns = { "Quiz Number", "Quiz Name" };
+            Object[][] data;
+            if (teacher.getMatiere() != null) {
+                ArrayList<Quiz> quizzes = teacher.getMatiere().getQuizzes();
+                data = new Object[quizzes.size()][2];
+                for (int i = 0; i < quizzes.size(); i++) {
+                    data[i][0] = i + 1;
+                    data[i][1] = quizzes.get(i).getQuizTitle();
+                }
+            } else {
+                data = new Object[0][0];
+            }
 
-            DefaultTableModel model = new DefaultTableModel(data, columns);
-            JTable table = new JTable(model);
+            model = new DefaultTableModel(data, columns);
+            table = new JTable(model);
             JScrollPane scrollPane = new JScrollPane(table);
             panel.add(scrollPane, BorderLayout.CENTER);
 
@@ -55,24 +64,32 @@ public class ViewQuizzes {
                     int selectedRow = table.getSelectedRow();
                     if (selectedRow == -1) {
                         JOptionPane.showMessageDialog(frame, "Please select a row.");
-                    } else {
-                        Object number = table.getValueAt(selectedRow, 0);
-                        Object text = table.getValueAt(selectedRow, 1);
+                    } else if (teacher.getMatiere() != null && teacher.getMatiere().getQuizzes().size() > 0) {
                         JDialog dialog = new JDialog(frame, "Information");
                         dialog.setSize(new Dimension(200, 150));
                         dialog.setLocationRelativeTo(frame);
-                        JOptionPane.showMessageDialog(dialog, "Number: " + number + "\nText: " + text);
-                        dialog.setVisible(true);
+                        JOptionPane.showMessageDialog(dialog,
+                                teacher.getMatiere().getQuizzes().get(selectedRow).toString());
                     }
                 }
             });
             panel.add(button, BorderLayout.SOUTH);
-            this.teacher.getMatiere().addObserver(this);
+            if (this.teacher.getMatiere() != null) {
+                this.teacher.getMatiere().addObserver(this);
+            }
         }
 
         @Override
         public void update(MyObservable obs, Object obj) {
-            System.out.println("aaaaaaaaa");
+            ArrayList<Quiz> quizzes = teacher.getMatiere().getQuizzes();
+            Object[][] data = new Object[quizzes.size()][2];
+            for (int i = 0; i < quizzes.size(); i++) {
+                data[i][0] = i + 1;
+                data[i][1] = quizzes.get(i).getQuizTitle();
+            }
+            String[] columns = { "Quiz Number", "Quiz Name" };
+            model = new DefaultTableModel(data, columns);
+            table.setModel(model);
         }
     }
 

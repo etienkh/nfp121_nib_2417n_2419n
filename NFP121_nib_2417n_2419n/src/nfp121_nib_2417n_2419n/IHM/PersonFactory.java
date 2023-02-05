@@ -1,13 +1,18 @@
 package nfp121_nib_2417n_2419n.IHM;
 
-import java.awt.Font;
-import java.io.*;
-import java.util.ArrayList;
-import nfp121_nib_2417n_2419n.Model.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
+import nfp121_nib_2417n_2419n.Model.Person;
+import nfp121_nib_2417n_2419n.Model.Student;
+import nfp121_nib_2417n_2419n.Model.Teacher;
 
 public class PersonFactory implements Serializable {
 

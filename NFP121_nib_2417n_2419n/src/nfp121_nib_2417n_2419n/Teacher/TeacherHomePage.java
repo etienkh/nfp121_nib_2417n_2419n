@@ -1,16 +1,12 @@
 package nfp121_nib_2417n_2419n.Teacher;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import nfp121_nib_2417n_2419n.Model.Person;
-import nfp121_nib_2417n_2419n.Model.Quiz;
+
 import nfp121_nib_2417n_2419n.Model.Teacher;
 import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
-import nfp121_nib_2417n_2419n.TemplateMethod.ThreeCreditsCoursesQuiz;
 
 
 public class TeacherHomePage extends JFrame  {
@@ -21,8 +17,7 @@ public class TeacherHomePage extends JFrame  {
 
     public TeacherHomePage(Teacher teacher) {
         JTabbedPane tabbedPane = new JTabbedPane();
-        QuizTemplate quizTemplate;
-        tabbedPane.addTab("Course", new CourseSection());
+        tabbedPane.addTab("Course", new CourseSection(teacher));
         tabbedPane.addTab("Sessions", new JLabel("This is tab 2"));
         tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
         tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));

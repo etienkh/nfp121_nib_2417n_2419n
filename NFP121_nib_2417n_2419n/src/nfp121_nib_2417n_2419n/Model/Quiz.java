@@ -1,13 +1,32 @@
 package nfp121_nib_2417n_2419n.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
 
-public class Quiz extends MyObservable {
+public class Quiz extends MyObservable implements Serializable {
 
     private String quizTitle;
     private List<Question> questions;
+    private double maxGrade;
+    public double getMaxGrade() {
+        return maxGrade;
+    }
+
+    public void setMaxGrade(double maxGrade) {
+        this.maxGrade = maxGrade;
+    }
+
+    private double questionGrade;
+
+    public double getQuestionGrade() {
+        return questionGrade;
+    }
+
+    public void setQuestionGrade(double questionGrade) {
+        this.questionGrade = questionGrade;
+    }
 
     public Quiz(String quizTitle, List<Question> questions) {
         this.quizTitle = quizTitle;
@@ -53,10 +72,12 @@ public class Quiz extends MyObservable {
         String s = "Title : " + quizTitle + "\n\n";
         int index = 1;
         for (Question el : questions) {
-            s += "Question " + index + ": " + el.getQuestion() + "\nChoices :\n" + String.join("\n", el.getChoices()) + "\nCorrect choice:" + el.getCorrectChoice();
+            s += "Question " + index + ": " + el.getQuestion() + "\nChoices :\n" + String.join("\n", el.getChoices())
+                    + "\nCorrect choice:" + el.getCorrectChoice();
             s += "\n\n";
             index++;
-        };
+        }
+        ;
         return s;
     }
 

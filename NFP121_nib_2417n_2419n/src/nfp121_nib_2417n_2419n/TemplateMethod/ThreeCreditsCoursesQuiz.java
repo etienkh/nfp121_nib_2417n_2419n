@@ -1,25 +1,32 @@
 package nfp121_nib_2417n_2419n.TemplateMethod;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import nfp121_nib_2417n_2419n.Model.Question;
+
 import nfp121_nib_2417n_2419n.Model.Quiz;
 import nfp121_nib_2417n_2419n.Model.Teacher;
-import nfp121_nib_2417n_2419n.Teacher.QuizSection;
 
-public class ThreeCreditsCoursesQuiz extends QuizTemplate {
+public class ThreeCreditsCoursesQuiz extends QuizTemplate implements Serializable {
 
-    public void gradeQuiz(Quiz quiz) {
+    public void calculateMaxGrade(Teacher teacher) {
+        ArrayList<Quiz> quizzes = teacher.getMatiere().getQuizzes();
         super.maxGrade = 100;
+        for (Quiz quiz : quizzes) {
+            quiz.setMaxGrade(super.maxGrade);
+        }
+        teacher.getMatiere().setQuizzes(quizzes);
     }
 
     public void calculateGrade(Teacher teacher) {
         ArrayList<Quiz> quizzes = teacher.getMatiere().getQuizzes();
         int questions = 0;
-        for(Quiz quiz: quizzes){
+        for (Quiz quiz : quizzes) {
             questions += quiz.getQuestions().size();
         }
-        super.questionCorrectGrade = super.maxGrade/questions;
+        super.questionCorrectGrade = super.maxGrade / questions;
+        for (Quiz quiz : quizzes) {
+            quiz.setQuestionGrade(super.questionCorrectGrade);
+        }
+        teacher.getMatiere().setQuizzes(quizzes);
     }
 }

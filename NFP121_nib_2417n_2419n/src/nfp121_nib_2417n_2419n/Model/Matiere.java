@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
+import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 
 /**
  *
@@ -27,6 +28,15 @@ public class Matiere extends MyObservable implements Serializable{
     private ArrayList<File> documents;
     private ArrayList<String> videos;
     private ArrayList<Quiz> quizzes;
+    private QuizTemplate quizTemplate;
+
+    public QuizTemplate getQuizTemplate() {
+        return quizTemplate;
+    }
+
+    public void setQuizTemplate(QuizTemplate quizTemplate) {
+        this.quizTemplate = quizTemplate;
+    }
 
     public String getCode() {
         return code;
@@ -82,23 +92,8 @@ public class Matiere extends MyObservable implements Serializable{
         this.objectifs = new ArrayList<String>();
         this.chapitres = new ArrayList<String>();
         this.documents = new ArrayList<File>();
+        this.quizzes = new ArrayList<Quiz>();
         //   this.videos = new ArrayList<String>();
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCredit() {
-        return credit;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
    public ArrayList<String> getSessions() {

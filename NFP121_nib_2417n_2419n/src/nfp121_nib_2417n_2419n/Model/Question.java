@@ -1,11 +1,12 @@
 package nfp121_nib_2417n_2419n.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import nfp121_nib_2417n_2419n.MVC.MyObservable;
-import java.lang.Object;
 
-public class Question extends MyObservable {
+import nfp121_nib_2417n_2419n.MVC.MyObservable;
+
+public class Question extends MyObservable implements Serializable {
 
     private String question;
     private List<String> choices;

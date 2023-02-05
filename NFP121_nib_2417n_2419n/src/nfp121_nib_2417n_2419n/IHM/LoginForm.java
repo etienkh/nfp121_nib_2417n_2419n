@@ -1,23 +1,31 @@
 package nfp121_nib_2417n_2419n.IHM;
 
-import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.lang.Exception;
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
-import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
+import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
 
 class LoginForm extends JFrame implements ActionListener {
 
@@ -96,7 +104,7 @@ class LoginForm extends JFrame implements ActionListener {
                 if (per.getClass() == Student.class) {
                     System.out.println("Student Home Page");
                 } else {
-                    TeacherHomePage teacherHomePage = new TeacherHomePage((Teacher) per);
+                    new TeacherHomePage((Teacher) per);
                 }
                 this.dispose();
             } catch (Exception ex) {
@@ -115,7 +123,7 @@ class regFormActionListener implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
 
-        registrationFormIHM r = new registrationFormIHM();
+        new registrationFormIHM();
 
     }
 }
