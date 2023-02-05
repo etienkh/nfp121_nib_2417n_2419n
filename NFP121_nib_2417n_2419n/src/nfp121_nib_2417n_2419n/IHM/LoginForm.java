@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
@@ -103,10 +103,10 @@ class LoginForm extends JFrame implements ActionListener {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-             JLabel label = new JLabel("The user name or password is invalid!");
-                label.setFont(new Font("calibri", Font.BOLD, 15));
-                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            JLabel label = new JLabel("The user name or password is invalid!");
+            label.setFont(new Font("calibri", Font.BOLD, 15));
+            JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 }

@@ -1,8 +1,5 @@
 package nfp121_nib_2417n_2419n.Teacher;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -16,7 +13,7 @@ import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 import nfp121_nib_2417n_2419n.TemplateMethod.ThreeCreditsCoursesQuiz;
 
 
-public class TeacherHomePage extends JFrame implements ActionListener {
+public class TeacherHomePage extends JFrame  {
 
     public JLabel userLabel;
     public JPanel newPanel1;
@@ -33,7 +30,7 @@ public class TeacherHomePage extends JFrame implements ActionListener {
 
         this.add(tabbedPane);
 
-        this.setSize(1500, 800);
+        this.setSize(1700, 800);
         this.setLocationRelativeTo(null);
 
         // set the default close operation and make the frame visible
@@ -41,6 +38,5 @@ public class TeacherHomePage extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent ae) {
-    }
+ 
 }

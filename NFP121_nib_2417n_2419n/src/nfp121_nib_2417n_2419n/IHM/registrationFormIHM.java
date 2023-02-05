@@ -1,5 +1,6 @@
 package nfp121_nib_2417n_2419n.IHM;
 
+import nfp121_nib_2417n_2419n.Factory.PersonFactory;
 import nfp121_nib_2417n_2419n.Model.*;
 
 import javax.swing.*;
@@ -9,8 +10,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.getPerson;
-import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
+import static nfp121_nib_2417n_2419n.Factory.PersonFactory.getPerson;
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
 
 class registrationFormIHM extends JFrame {
 
@@ -174,9 +176,13 @@ class registrationFormIHM extends JFrame {
                         return;
                     }
                 }
-                PersonFactory personfactory = new PersonFactory();
                 Person person = new Person(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), passwordField.getText());
-                Person personRes = getPerson(person, persType);
+                Person personRes = PersonFactory.getPerson(person, persType);
+                InputOutputPerson.writePerson(personRes);
+                if(personRes.getClass() == Teacher.class){
+                    new TeacherHomePage(personRes);
+                }
+          
                 registrationFormIHM.getFrame().setVisible(false);
             } catch (Exception ex) {
                 Logger.getLogger(registrationFormIHM.class.getName()).log(Level.SEVERE, null, ex);
