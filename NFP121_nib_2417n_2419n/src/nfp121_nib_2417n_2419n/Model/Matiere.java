@@ -5,13 +5,15 @@
  */
 package nfp121_nib_2417n_2419n.Model;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Georges
  */
-public class Matiere {
+public class Matiere implements Serializable {
 
     private String code;
     private String name;
@@ -21,43 +23,63 @@ public class Matiere {
     private ArrayList<String> syllabus;
     private ArrayList<String> objectifs;
     private ArrayList<String> chapitres;
-    private ArrayList<String> documents;
-    private ArrayList<String> videos;
+    private ArrayList<File> documents;
+    //private ArrayList<String> videos;
 
-    Matiere() {
+    public Matiere(String code, String name, int credit) {
         this.code = code;
         this.name = name;
         this.credit = credit;
-        this.price = 12;
+        this.price = 12 * credit;
         this.sessions = new ArrayList<String>();
         this.syllabus = new ArrayList<String>();
         this.objectifs = new ArrayList<String>();
         this.chapitres = new ArrayList<String>();
-        this.documents = new ArrayList<String>();
-        this.videos = new ArrayList<String>();
+        this.documents = new ArrayList<File>();
+        //   this.videos = new ArrayList<String>();
     }
 
-    ArrayList<String> getSessions() {
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+   public ArrayList<String> getSessions() {
         return sessions;
     }
 
-    ArrayList<String> getSyllabus() {
+   public ArrayList<String> getSyllabus() {
         return syllabus;
     }
 
-    ArrayList<String> getObjectifs() {
+    public ArrayList<String> getObjectifs() {
         return objectifs;
     }
 
-    ArrayList<String> getChapitres() {
+    public ArrayList<String> getChapitres() {
         return chapitres;
     }
 
-    ArrayList<String> getDocuments() {
+   public ArrayList<File> getDocuments() {
         return documents;
     }
 
-    ArrayList<String> getVideos() {
-        return videos;
+    public String toString() {
+        return code + ":" + name + " credit " + credit + " price " + price;
     }
+
+//    ArrayList<String> getVideos() {
+//        return videos;
+//    }
 }

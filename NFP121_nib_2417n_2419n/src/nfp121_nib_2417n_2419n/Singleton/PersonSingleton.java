@@ -11,7 +11,7 @@ public class PersonSingleton {
         public static Person getInstance(Person p, String typePerson) throws IOException{
             if(person != null)
                 return person;
-            person = getPerson(p, typePerson);
+            person = p;
             return person;
         }
 }

@@ -14,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
 public class Person implements Serializable {
 
     public int id;
@@ -22,21 +22,6 @@ public class Person implements Serializable {
     public String firstName;
     public String lastName;
     public String password;
-
-    public ArrayList<Person> readAllPerson() {
-        ArrayList<Person> list = new ArrayList<Person>();
-        File file = new File("person");
-        try {
-
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            list = (ArrayList<Person>) ois.readObject();
-            ois.close();
-
-        } catch (Exception exc) {
-        }
-        return list;
-    }
 
     public Person(String username, String firstName, String lastName, String password) {
         this.username = username;
