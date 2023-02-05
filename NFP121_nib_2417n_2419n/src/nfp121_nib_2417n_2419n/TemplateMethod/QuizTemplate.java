@@ -1,26 +1,21 @@
-abstract class QuizTemplate {
-   final void createQuiz() {
-       gradeQuiz();
-       displayResults();
-   }
-   abstract void gradeQuiz();
-   abstract void displayResults();
-}
+package nfp121_nib_2417n_2419n.TemplateMethod;
 
-class TwoCreditsCoursesQuiz extends QuizTemplate {
-   void gradeQuiz() {
-       // code to grade English quiz
-   }
-   void displayResults() {
-       // code to display English quiz results
-   }
-}
+import javax.swing.JPanel;
+import nfp121_nib_2417n_2419n.Model.Quiz;
+import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.Teacher.QuizSection;
 
-class ThreeCreditsCoursesQuiz extends QuizTemplate {
-   void gradeQuiz() {
-       // code to grade Math quiz
-   }
-   void displayResults() {
-       // code to display Math quiz results
-   }
+public abstract class QuizTemplate {
+
+    double maxGrade;
+    double questionCorrectGrade;
+
+    public final void createQuiz(Teacher teacher, Quiz quiz) {
+        gradeQuiz(quiz);
+        calculateGrade(teacher);
+    }
+
+    abstract void gradeQuiz(Quiz quiz);
+
+    abstract void calculateGrade(Teacher teacher);
 }

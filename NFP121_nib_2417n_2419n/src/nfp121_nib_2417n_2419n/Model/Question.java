@@ -1,8 +1,11 @@
 package nfp121_nib_2417n_2419n.Model;
 
+import java.util.ArrayList;
 import java.util.List;
+import nfp121_nib_2417n_2419n.MVC.MyObservable;
+import java.lang.Object;
 
-public class Question {
+public class Question extends MyObservable {
 
     private String question;
     private List<String> choices;
@@ -14,12 +17,20 @@ public class Question {
         this.correctChoice = answer;
     }
 
+    public Question() {
+        this.question = "";
+        this.choices = new ArrayList<String>();
+        this.correctChoice = "";
+    }
+
     public String getQuestion() {
         return question;
     }
 
     public void setQuestion(String question) {
         this.question = question;
+        setChanged();
+        notifyObservers();
     }
 
     public List<String> getOptions() {
@@ -28,6 +39,8 @@ public class Question {
 
     public void setOptions(List<String> options) {
         this.choices = options;
+        setChanged();
+        notifyObservers();
     }
 
     public String getAnswer() {
@@ -36,6 +49,8 @@ public class Question {
 
     public void setAnswer(String answer) {
         this.correctChoice = answer;
+        setChanged();
+        notifyObservers();
     }
 
     public List<String> getChoices() {
@@ -48,5 +63,13 @@ public class Question {
 
     public boolean isCorrect(String choice) {
         return correctChoice.equals(choice);
+    }
+    
+    public boolean isValid (){
+        if(question.isEmpty() || choices.size() == 0 || correctChoice.isEmpty()){
+            return false;
+        }else{
+            return true;    
+        }
     }
 }

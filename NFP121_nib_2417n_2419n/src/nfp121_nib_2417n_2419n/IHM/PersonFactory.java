@@ -38,7 +38,6 @@ public class PersonFactory implements Serializable {
             } else {
                 p = new Teacher(person.username, person.firstName, person.lastName, person.password, null);
             }
-            System.out.println(person.id);
             personList.add(p);
             File output = new File("person");
             FileOutputStream fos = new FileOutputStream(output);

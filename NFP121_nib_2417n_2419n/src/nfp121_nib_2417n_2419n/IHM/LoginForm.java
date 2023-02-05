@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import static nfp121_nib_2417n_2419n.IHM.PersonFactory.readAllPerson;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
+import nfp121_nib_2417n_2419n.Model.Teacher;
 import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
 
 class LoginForm extends JFrame implements ActionListener {
@@ -95,7 +96,7 @@ class LoginForm extends JFrame implements ActionListener {
                 if (per.getClass() == Student.class) {
                     System.out.println("Student Home Page");
                 } else {
-                    TeacherHomePage teacherHomePage = new TeacherHomePage(per);
+                    TeacherHomePage teacherHomePage = new TeacherHomePage((Teacher) per);
                 }
                 this.dispose();
             } catch (Exception ex) {

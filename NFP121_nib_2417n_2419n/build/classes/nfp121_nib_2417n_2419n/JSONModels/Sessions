@@ -1,0 +1,7 @@
+{
+    "session_id": "unique_identifier",
+    "user_id": "unique_identifier",
+    "start_time": "timestamp",  
+    "end_time": "timestamp",
+    "duration": "time_difference",
+}

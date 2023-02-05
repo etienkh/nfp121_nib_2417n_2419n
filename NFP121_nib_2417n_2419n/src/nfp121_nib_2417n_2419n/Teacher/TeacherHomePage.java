@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import nfp121_nib_2417n_2419n.Model.Person;
+import nfp121_nib_2417n_2419n.Model.Quiz;
+import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
+import nfp121_nib_2417n_2419n.TemplateMethod.ThreeCreditsCoursesQuiz;
+
 
 public class TeacherHomePage extends JFrame implements ActionListener {
 
@@ -17,20 +22,18 @@ public class TeacherHomePage extends JFrame implements ActionListener {
     public JPanel newPanel1;
     public JPanel newPanel;
 
-    public TeacherHomePage(Person person) {
+    public TeacherHomePage(Teacher teacher) {
         JTabbedPane tabbedPane = new JTabbedPane();
-
-        // add tabs to the JTabbedPane
+        QuizTemplate quizTemplate;
         tabbedPane.addTab("Course", new CourseSection());
         tabbedPane.addTab("Sessions", new JLabel("This is tab 2"));
         tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
-        tabbedPane.addTab("Quizes", QuizSection.newQuiz());
+        tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
+        tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
 
-        // add the JTabbedPane to the frame
         this.add(tabbedPane);
 
-        // set the size and location of the frame
-        this.setSize(1000, 800);
+        this.setSize(1500, 800);
         this.setLocationRelativeTo(null);
 
         // set the default close operation and make the frame visible
@@ -38,7 +41,6 @@ public class TeacherHomePage extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent ae) //pass action listener as a parameter  
-    {
+    public void actionPerformed(ActionEvent ae) {
     }
 }

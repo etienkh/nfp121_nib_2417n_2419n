@@ -5,10 +5,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import nfp121_nib_2417n_2419n.MVC.MyObservable;
+import nfp121_nib_2417n_2419n.MVC.MyObserver;
+import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Question;
 import nfp121_nib_2417n_2419n.Model.Quiz;
+import nfp121_nib_2417n_2419n.Model.Teacher;
 
-class QuizView extends JFrame {
+class QuizView extends JFrame implements MyObserver {
 
     private JLabel questionLabel;
     private JTextField questionField;
@@ -22,97 +29,47 @@ class QuizView extends JFrame {
     private JButton finishButton;
     private JTextArea resultArea;
     private JPanel panel, panel1, panel2, panel3, panel4, panel5;
-    private List<JTextField> choiceFields = new ArrayList<>();
 
-    public QuizView() {
+    private Quiz quiz;
+    private Question question;
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public QuizView(Quiz quiz, Question question) {
         setTitle("Quiz Creator");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        questionLabel = new JLabel("Question: ");
-        questionField = new JTextField(80);
-        choiceLabel = new JLabel("Choice: ");
-        choiceField = new JTextField(50);
-        correctChoiceLabel = new JLabel("Correct Choice: ");
-        correctChoiceField = new JTextField(50);
-        addChoiceButton = new JButton("Add Choice");
-        addQuestionButton = new JButton("Add Question");
-        resetButton = new JButton("Reset");
-        finishButton = new JButton("Finish");
-        resultArea = new JTextArea(30, 60);
-        resultArea.setEditable(false);
+        correctChoiceLabel = new JLabel("Quiz Title : ");
+        correctChoiceField = new JTextField(100);
+        correctChoiceField.getDocument().addDocumentListener(new TextFieldListener());
 
-        panel = new JPanel();
-        panel1 = new JPanel();
-        panel2 = new JPanel();
-        panel3 = new JPanel();
-        panel4 = new JPanel();
-        panel5 = new JPanel();
+        this.resultArea = new JTextArea(30, 60);
+        this.resultArea.setEditable(false);
 
-        panel1.add(questionLabel);
-        panel1.add(questionField);
-        panel2.add(choiceLabel);
-        panel2.add(choiceField);
-        panel2.add(addChoiceButton);
-        panel3.add(correctChoiceLabel);
-        panel3.add(correctChoiceField);
-        panel4.add(addQuestionButton);
-        panel4.add(resetButton);
-        panel4.add(finishButton);
-        panel5.add(resultArea);
-        panel.add(panel1);
-        panel.add(panel2);
-        panel.add(panel3);
-        panel.add(panel4);
-        panel.add(panel5);
+        this.panel = new JPanel();
 
-        add(panel);
+        this.panel.add(correctChoiceLabel);
+        this.panel.add(correctChoiceField);
+
+        this.panel.add(this.resultArea);
+
+        this.quiz = quiz;
+        this.question = question;
+        this.quiz.addObserver(this);
+        this.question.addObserver(this);
     }
 
-    public JButton getAddChoiceButton() {
-        return addChoiceButton;
-    }
-
-    public JButton getAddQuestionButton() {
-        return addQuestionButton;
-    }
-
-    public JButton getResetButton() {
-        return resetButton;
-    }
-
-    public JButton getFinishButton() {
-        return finishButton;
-    }
-
-    public JTextField getQuestionField() {
-        return questionField;
-    }
-
-    public JTextField getChoiceField() {
-        return choiceField;
-    }
-
-    public JTextField getCorrectChoiceField() {
-        return correctChoiceField;
-    }
-
-    public JTextArea getResultArea() {
-        return resultArea;
-    }
-
-    public void addChoiceField(JTextField choiceField) {
-        choiceFields.add(choiceField);
-    }
-
-    public void clearChoices() {
-        choiceFields.clear();
-    }
-
-    public void updateChoices(List<String> choices) {
+    public void updateChoices() {
         resultArea.setText("");
         int count = 1;
-        for (String choice : choices) {
+        for (String choice : question.getChoices()) {
             resultArea.append(count + ". " + choice + "\n");
             count++;
         }
@@ -125,50 +82,195 @@ class QuizView extends JFrame {
     public JPanel getMainPanel() {
         return panel;
     }
+
+    @Override
+    public void update(MyObservable obs, Object obj) {
+        if (obs.getClass() == Question.class) {
+            updateChoices();
+        } else {
+            showResult(quiz.toString());
+            if (!quiz.isValid()) {
+                resultArea.setText("");
+                correctChoiceField.setText("");
+            }
+        }
+    }
+
+    private class TextFieldListener implements DocumentListener {
+
+        public void insertUpdate(DocumentEvent e) {
+            try {
+                String title = e.getDocument().getText(0, e.getDocument().getLength());
+                quiz.setQuizTitle(title);
+            } catch (BadLocationException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        public void removeUpdate(DocumentEvent e) {
+            try {
+                String title = e.getDocument().getText(0, e.getDocument().getLength());
+                quiz.setQuizTitle(title);
+            } catch (BadLocationException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        public void changedUpdate(DocumentEvent e) {
+            // not applicable for plain text fields
+        }
+    }
 }
 
 // Controller
 class QuizController {
 
     private Quiz quiz;
-    private QuizView quizView;
+    private Question question;
+    private Teacher teacher;
     private List<String> choices;
+    private List<JTextField> choiceFields = new ArrayList<>();
+    JPanel panel;
+    JTextField questionField, choiceField, correctChoiceField;
+    private JButton newQuizBtn;
 
-    public QuizController(Quiz quiz, QuizView quizView) {
+    public QuizController(Quiz quiz, Question question, Teacher teacher) {
         this.quiz = quiz;
-        this.quizView = quizView;
+        this.question = question;
+        this.teacher = teacher;
+
         choices = new ArrayList<>();
 
-        quizView.getAddChoiceButton().addActionListener(new AddChoiceListener());
-        quizView.getAddQuestionButton().addActionListener(new AddQuestionListener());
-        quizView.getResetButton().addActionListener(new ResetListener());
-        quizView.getFinishButton().addActionListener(new FinishListener());
+        panel = new JPanel();
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
+        JPanel panel4 = new JPanel();
+
+        JButton addChoiceBtn = getAddChoiceButton();
+        JButton resetBtn = getResetButton();
+        JButton finishBtn = getFinishButton();
+        JButton addQuestionBtn = getAddQuestionButton();
+
+        questionField = getQuestionField();
+        choiceField = getChoiceField();
+        correctChoiceField = getCorrectChoiceField();
+
+        newQuizBtn = new JButton("Create New Quiz");
+        newQuizBtn.addActionListener(new NewQuizListener());
+
+        panel1.add(getQuestionLabel());
+        panel1.add(questionField);
+        panel2.add(getAddChoiceLabel());
+        panel2.add(choiceField);
+        panel2.add(addChoiceBtn);
+        panel3.add(getCorrectChoiceLabel());
+        panel3.add(correctChoiceField);
+        panel4.add(addQuestionBtn);
+        panel4.add(resetBtn);
+        panel4.add(finishBtn);
+        panel4.add(newQuizBtn);
+        newQuizBtn.setVisible(false);
+        addChoiceBtn.addActionListener(new AddChoiceListener());
+        addQuestionBtn.addActionListener(new AddQuestionListener());
+        resetBtn.addActionListener(new ResetListener());
+        finishBtn.addActionListener(new FinishListener());
+        panel.setLayout(new BorderLayout());
+        panel.add(panel1, BorderLayout.NORTH);
+        panel.add(panel2, BorderLayout.EAST);
+        panel.add(panel3, BorderLayout.WEST);
+        panel.add(panel4, BorderLayout.SOUTH);
+    }
+
+    public JPanel getPanel() {
+        return this.panel;
+    }
+
+    public JButton getAddChoiceButton() {
+        JButton addChoiceButton = new JButton("Add Choice");
+        return addChoiceButton;
+    }
+
+    public JLabel getAddChoiceLabel() {
+        JLabel questionLabel = new JLabel("Choice: ");
+        return questionLabel;
+    }
+
+    public JButton getAddQuestionButton() {
+        JButton addQuestionButton = new JButton("Add Question");
+        return addQuestionButton;
+    }
+
+    public JLabel getQuestionLabel() {
+        JLabel choiceLabel = new JLabel("Question: ");
+        return choiceLabel;
+    }
+
+    public JButton getResetButton() {
+        JButton resetButton = new JButton("Reset");
+        return resetButton;
+    }
+
+    public JLabel getCorrectChoiceLabel() {
+        JLabel correctChoiceLabel = new JLabel("Correct Choice: ");
+        return correctChoiceLabel;
+    }
+
+    public JButton getFinishButton() {
+        JButton finishButton = new JButton("Finish");
+        return finishButton;
+    }
+
+    public JTextField getQuestionField() {
+        JTextField questionField = new JTextField(80);
+        return questionField;
+    }
+
+    public JTextField getChoiceField() {
+        JTextField choiceField = new JTextField(50);
+        return choiceField;
+    }
+
+    public JTextField getCorrectChoiceField() {
+        JTextField correctChoiceField = new JTextField(50);
+        return correctChoiceField;
+    }
+
+    public void addChoiceField(JTextField choiceField) {
+        choiceFields.add(choiceField);
+    }
+
+    public void clearChoices() {
+        choiceFields.clear();
     }
 
     private class AddChoiceListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-            String choice = quizView.getChoiceField().getText();
+            String questionTitle = questionField.getText();
+            String choice = choiceField.getText();
             choices.add(choice);
-            quizView.clearChoices();
-            quizView.updateChoices(choices);
-            quizView.getChoiceField().setText("");
+            clearChoices();
+            choiceField.setText("");
             JTextField choiceField = new JTextField(20);
-            quizView.addChoiceField(choiceField);
+            addChoiceField(choiceField);
+            question.setOptions(choices);
         }
     }
 
     private class AddQuestionListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-            String question = quizView.getQuestionField().getText();
-            quiz.addQuestion(new Question(question, choices, quizView.getCorrectChoiceField().getText()));
-            quizView.getQuestionField().setText("");
-            quizView.getCorrectChoiceField().setText("");
+            String questionTitle = questionField.getText();
+            question.setQuestion(questionTitle);
+            question.setOptions(choices);
+            question.setAnswer(correctChoiceField.getText());
+            questionField.setText("");
+            correctChoiceField.setText("");
             choices = new ArrayList<>();
-            quizView.clearChoices();
+            clearChoices();
+            Question clone = new Question(question.getQuestion(), question.getChoices(), question.getCorrectChoice());
+            quiz.addQuestion(clone);
         }
     }
 
@@ -176,9 +278,9 @@ class QuizController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            quizView.getQuestionField().setText("");
-            quizView.getCorrectChoiceField().setText("");
-            quizView.clearChoices();
+            questionField.setText("");
+            correctChoiceField.setText("");
+            clearChoices();
             quiz.clear();
             choices.clear();
         }
@@ -188,19 +290,40 @@ class QuizController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            quizView.showResult(quiz.toString());
+            if (quiz.isValid()) {
+                getPanel().setEnabled(false);
+                newQuizBtn.setVisible(true);
+                ArrayList<Quiz> quizzes = teacher.getMatiere().getQuizzes();
+                quizzes.add(quiz);
+                teacher.getMatiere().setQuizzes(quizzes);
+            }
+        }
+    }
+
+    private class NewQuizListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            quiz.clear();
+            getPanel().setEnabled(true);
+            questionField.setText("");
+            choiceField.setText("");
+            correctChoiceField.setText("");
         }
     }
 }
 
 public class QuizSection {
 
-    public static JPanel newQuiz() {
+    public static JPanel newQuiz(Teacher teacher) {
         Quiz quiz = new Quiz();
-        QuizView quizView = new QuizView();
-        QuizController quizController = new QuizController(quiz, quizView);
+        Question question = new Question();
+        QuizView quizView = new QuizView(quiz, question);
+        QuizController quizController = new QuizController(quiz, question, teacher);
+
+        quizView.getMainPanel().add(quizController.getPanel());
 
         return quizView.getMainPanel();
-
     }
+
 }

@@ -6,12 +6,13 @@
 package nfp121_nib_2417n_2419n.Model;
 
 import java.util.ArrayList;
+import nfp121_nib_2417n_2419n.MVC.MyObservable;
 
 /**
  *
  * @author Georges
  */
-public class Matiere {
+public class Matiere extends MyObservable {
 
     private String code;
     private String name;
@@ -23,6 +24,49 @@ public class Matiere {
     private ArrayList<String> chapitres;
     private ArrayList<String> documents;
     private ArrayList<String> videos;
+    private ArrayList<Quiz> quizzes;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public ArrayList<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(ArrayList<Quiz> quizzes) {
+        this.quizzes = quizzes;
+        setChanged();
+        notifyObservers();
+    }
 
     Matiere() {
         this.code = code;
@@ -35,29 +79,32 @@ public class Matiere {
         this.chapitres = new ArrayList<String>();
         this.documents = new ArrayList<String>();
         this.videos = new ArrayList<String>();
+        this.quizzes = new ArrayList<Quiz>();
+
     }
 
-    ArrayList<String> getSessions() {
+    
+    public ArrayList<String> getSessions() {
         return sessions;
     }
 
-    ArrayList<String> getSyllabus() {
+    public ArrayList<String> getSyllabus() {
         return syllabus;
     }
 
-    ArrayList<String> getObjectifs() {
+    public ArrayList<String> getObjectifs() {
         return objectifs;
     }
 
-    ArrayList<String> getChapitres() {
+    public ArrayList<String> getChapitres() {
         return chapitres;
     }
 
-    ArrayList<String> getDocuments() {
+    public ArrayList<String> getDocuments() {
         return documents;
     }
 
-    ArrayList<String> getVideos() {
+    public ArrayList<String> getVideos() {
         return videos;
     }
 }
