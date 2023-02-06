@@ -15,7 +15,7 @@ public class PersonFactory implements Serializable {
         if (typePerson.equalsIgnoreCase("student")) {
             return new Student(person.username, person.firstName, person.lastName, person.password);
         } else {
-            return new Teacher(person.username, person.firstName, person.lastName, person.password, null);
+            return new Teacher(person.username, person.firstName, person.lastName, person.password, new Matiere());
         }
 
     }

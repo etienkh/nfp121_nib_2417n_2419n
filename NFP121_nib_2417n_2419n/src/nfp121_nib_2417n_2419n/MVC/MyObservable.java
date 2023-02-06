@@ -5,7 +5,7 @@ import java.util.*;
 public abstract class MyObservable {
 
     boolean changed;
-    List<MyObserver> observers;
+    public List<MyObserver> observers;
 
     public MyObservable() {
         changed = false;
