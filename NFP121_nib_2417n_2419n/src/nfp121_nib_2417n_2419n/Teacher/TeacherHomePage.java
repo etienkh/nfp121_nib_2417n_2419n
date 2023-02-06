@@ -5,8 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import nfp121_nib_2417n_2419n.Model.Session;
 import nfp121_nib_2417n_2419n.Model.Teacher;
-import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 
 
 public class TeacherHomePage extends JFrame  {
@@ -17,9 +17,10 @@ public class TeacherHomePage extends JFrame  {
 
     public TeacherHomePage(Teacher teacher) {
         JTabbedPane tabbedPane = new JTabbedPane();
+        Session session = new Session();
         tabbedPane.addTab("Course", new CourseSection(teacher));
-        tabbedPane.addTab("Sessions", new JLabel("This is tab 2"));
-        tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
+        tabbedPane.addTab("Sessions", SessionsSection.getSessionsSection(teacher, session ,this));
+        tabbedPane.addTab("View Sessions", ViewSessions.SessionsController(teacher, session, this));
         tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
         tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
 
