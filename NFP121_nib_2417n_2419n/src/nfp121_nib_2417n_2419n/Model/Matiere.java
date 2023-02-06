@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nfp121_nib_2417n_2419n.Model;
 
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
+import nfp121_nib_2417n_2419n.MVC.MyObserver;
 import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 
 /**
  *
  * @author Georges
  */
-public class Matiere extends MyObservable implements Serializable{
+public class Matiere extends MyObservable implements Serializable {
 
     private String code;
     private String name;
@@ -40,6 +38,10 @@ public class Matiere extends MyObservable implements Serializable{
 
     public String getCode() {
         return code;
+    }
+
+    public List<MyObserver> getObservers (){
+        return super.observers;
     }
 
     public void setCode(String code) {
@@ -80,7 +82,7 @@ public class Matiere extends MyObservable implements Serializable{
         notifyObservers();
     }
 
-    //private ArrayList<String> videos;
+    // private ArrayList<String> videos;
 
     public Matiere(String code, String name, int credit) {
         this.code = code;
@@ -93,14 +95,23 @@ public class Matiere extends MyObservable implements Serializable{
         this.chapitres = new ArrayList<String>();
         this.documents = new ArrayList<File>();
         this.quizzes = new ArrayList<Quiz>();
-        //   this.videos = new ArrayList<String>();
+        // this.videos = new ArrayList<String>();
     }
 
-   public ArrayList<String> getSessions() {
+    public Matiere(){
+        this.sessions = new ArrayList<String>();
+        this.syllabus = new ArrayList<String>();
+        this.objectifs = new ArrayList<String>();
+        this.chapitres = new ArrayList<String>();
+        this.documents = new ArrayList<File>();
+        this.quizzes = new ArrayList<Quiz>();
+    }
+
+    public ArrayList<String> getSessions() {
         return sessions;
     }
 
-   public ArrayList<String> getSyllabus() {
+    public ArrayList<String> getSyllabus() {
         return syllabus;
     }
 
@@ -112,7 +123,7 @@ public class Matiere extends MyObservable implements Serializable{
         return chapitres;
     }
 
-   public ArrayList<File> getDocuments() {
+    public ArrayList<File> getDocuments() {
         return documents;
     }
 
@@ -120,7 +131,7 @@ public class Matiere extends MyObservable implements Serializable{
         return code + ":" + name + " credit " + credit + " price " + price;
     }
 
-//    ArrayList<String> getVideos() {
-//        return videos;
-//    }
+    // ArrayList<String> getVideos() {
+    // return videos;
+    // }
 }

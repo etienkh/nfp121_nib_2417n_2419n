@@ -74,9 +74,7 @@ public class ViewQuizzes {
                 }
             });
             panel.add(button, BorderLayout.SOUTH);
-            if (this.teacher.getMatiere() != null) {
-                this.teacher.getMatiere().addObserver(this);
-            }
+            this.teacher.getMatiere().addObserver(this);
         }
 
         @Override
