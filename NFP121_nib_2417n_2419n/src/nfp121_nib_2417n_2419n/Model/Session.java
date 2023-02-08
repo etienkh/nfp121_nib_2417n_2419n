@@ -15,6 +15,18 @@ public class Session extends MyObservable implements Serializable {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private ArrayList<Person> attendees;
+
+    public Session(String sessionId, String name, LocalDate date, LocalTime startTime, LocalTime endTime) {
+        this.sessionId = sessionId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+        attendees = new ArrayList<Person>();
+        this.name = name;
+        setChanged();
+        notifyObservers();
+    }
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
@@ -36,19 +48,6 @@ public class Session extends MyObservable implements Serializable {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
-        setChanged();
-        notifyObservers();
-    }
-
-    ArrayList<Person> attendees;
-
-    public Session(String sessionId, String name, LocalDate date, LocalTime startTime, LocalTime endTime) {
-        this.sessionId = sessionId;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
-        attendees = new ArrayList<Person>();
-        this.name = name;
         setChanged();
         notifyObservers();
     }
