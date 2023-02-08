@@ -8,7 +8,8 @@ package nfp121_nib_2417n_2419n.Model;
 import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
 
 import java.io.Serializable;
-public class Person implements Serializable {
+import nfp121_nib_2417n_2419n.MVC.MyObservable;
+public class Person extends MyObservable implements Serializable {
 
     public int id;
     public String username;

@@ -30,6 +30,8 @@ public class Teacher extends Person  {
         this.matiereT = matiere;
     }
 
-
+public String toString(){
+    return ""+this.matiereT;
+}
 
 }

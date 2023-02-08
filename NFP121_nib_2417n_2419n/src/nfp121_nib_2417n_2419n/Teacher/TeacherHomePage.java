@@ -17,11 +17,12 @@ public class TeacherHomePage extends JFrame  {
 
     public TeacherHomePage(Teacher teacher) {
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Course", new CourseSection(teacher));
+        tabbedPane.addTab("Course", new CourseSection(teacher)); 
         tabbedPane.addTab("Sessions", new JLabel("This is tab 2"));
         tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
         tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
         tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
+          tabbedPane.addTab("Profile", new TeacherProfile(teacher));
 
         this.add(tabbedPane);
 
