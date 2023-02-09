@@ -29,6 +29,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import nfp121_nib_2417n_2419n.MVC.MyObserver;
 import nfp121_nib_2417n_2419n.Model.Matiere;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Teacher;
@@ -292,6 +293,9 @@ public class CourseSection extends Container {
                 return;
             }
             newMatiere = new Matiere(code, name, credit);
+            for (MyObserver obs : teacher.getMatiere().getObservers()) {
+                newMatiere.addObserver(obs);
+            }
             if (teacher.getMatiere() != null && teacher.getMatiere().getQuizzes().size() > 0) {
                 newMatiere.setQuizzes(teacher.getMatiere().getQuizzes());
             }

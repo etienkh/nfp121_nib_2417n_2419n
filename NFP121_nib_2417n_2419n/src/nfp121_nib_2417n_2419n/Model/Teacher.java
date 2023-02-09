@@ -1,25 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nfp121_nib_2417n_2419n.Model;
-// import nfp121_nib_2417n_2419n.IHM.*;
 
+import java.util.ArrayList;
 
-
-/**
- *
- * @author Georges
- */
-public class Teacher extends Person  {
+public class Teacher extends Person {
 
     private Matiere matiereT;
+    private ArrayList<Session> sessions;
 
     public Teacher(String username, String firstName, String lastName, String password, Matiere matiereT) {
         super(username, firstName, lastName, password);
         this.matiereT = matiereT;
-
+        sessions = new ArrayList<Session>();
     }
 
     public Matiere getMatiere() {
@@ -30,8 +21,16 @@ public class Teacher extends Person  {
         this.matiereT = matiere;
     }
 
-public String toString(){
-    return ""+this.matiereT;
-}
+    public String toString() {
+        return "" + this.matiereT;
+    }
+
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
 
 }

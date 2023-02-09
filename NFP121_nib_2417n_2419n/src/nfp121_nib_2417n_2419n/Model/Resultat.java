@@ -11,11 +11,13 @@ package nfp121_nib_2417n_2419n.Model;
  */
 public class Resultat {
 
-    String codeMatiere;
-    int note;
+    String matiereTitle;
+    double note;
+    String quizTitle;
 
-    Resultat(String codeMatiere, int note) {
-        this.codeMatiere = codeMatiere;
+    public Resultat(String codeMatiere, double note, String quizTitle) {
+        this.matiereTitle = codeMatiere;
         this.note = note;
+        this.quizTitle = quizTitle;
     }
 }
