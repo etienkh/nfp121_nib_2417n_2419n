@@ -128,7 +128,7 @@ public class Matiere extends MyObservable implements Serializable {
     }
 
     public String toString() {
-        return code + ":" + name + " credit " + credit + " price " + price;
+        return code + ":" + name+" "+credit+" credit";
     }
 
     // ArrayList<String> getVideos() {

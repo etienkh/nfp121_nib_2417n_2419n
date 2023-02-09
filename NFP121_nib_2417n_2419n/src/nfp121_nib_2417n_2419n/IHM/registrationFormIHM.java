@@ -21,7 +21,9 @@ import javax.swing.JTextField;
 
 import nfp121_nib_2417n_2419n.Factory.PersonFactory;
 import nfp121_nib_2417n_2419n.Model.Person;
+import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.Student.StudentHomePage;
 import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
 
 class registrationFormIHM extends JFrame {
@@ -191,6 +193,9 @@ class registrationFormIHM extends JFrame {
                 InputOutputPerson.writePerson(personRes);
                 if(personRes.getClass() == Teacher.class){
                     new TeacherHomePage((Teacher)personRes);
+                }
+                else if(personRes.getClass() == Student.class){
+                    new StudentHomePage((Student)personRes);
                 }
           
                 registrationFormIHM.getFrame().dispose();

@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -145,7 +146,7 @@ public class CourseSection extends Container {
         updateCourseBtn.addActionListener(new updateCourseActionListener());
         this.add(updateCourseBtn);
 
-        String[] columnObjectif = { "Objectif" };
+        String[] columnObjectif = {"Objectif"};
         String objectifData[][] = new String[11][1];
         if (teacher.getMatiere() != null) {
             ;
@@ -163,14 +164,14 @@ public class CourseSection extends Container {
         objectifPane.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    objectifModel.addRow(new Object[] { "" });
+                    objectifModel.addRow(new Object[]{""});
                 }
             }
 
         });
         this.add(objectifPane);
 
-        String[] columnSyllabus = { "syllabus" };
+        String[] columnSyllabus = {"syllabus"};
         String syllabusData[][] = new String[11][1];
         if (teacher.getMatiere() != null) {
             ;
@@ -190,14 +191,14 @@ public class CourseSection extends Container {
 
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    syllabusModel.addRow(new Object[] { "" });
+                    syllabusModel.addRow(new Object[]{""});
                 }
             }
 
         });
         this.add(syllabusPane);
 
-        String[] columnChapitre = { "chapitre" };
+        String[] columnChapitre = {"chapitre"};
 
         String chapitreData[][] = new String[11][1];
         if (teacher.getMatiere() != null) {
@@ -215,7 +216,7 @@ public class CourseSection extends Container {
         chapitrePane.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    chapitreModel.addRow(new Object[] { "" });
+                    chapitreModel.addRow(new Object[]{""});
                 }
             }
 
@@ -285,7 +286,12 @@ public class CourseSection extends Container {
                 credit = 3;
             }
             String code = codeField.getText();
-
+            if (code.trim().isEmpty() || name.trim().isEmpty()) {
+                JLabel label = new JLabel("The code and the name must not be empty!");
+                label.setFont(new Font("calibri", Font.BOLD, 15));
+                JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             newMatiere = new Matiere(code, name, credit);
             for (MyObserver obs : teacher.getMatiere().getObservers()) {
                 newMatiere.addObserver(obs);

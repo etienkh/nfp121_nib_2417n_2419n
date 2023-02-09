@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.Student.StudentHomePage;
 import nfp121_nib_2417n_2419n.Teacher.TeacherHomePage;
 
 class LoginForm extends JFrame implements ActionListener {
@@ -102,11 +103,11 @@ class LoginForm extends JFrame implements ActionListener {
             try {
                 Person per = getInstance(p, stud.isSelected() ? "student" : "teacher");
                 if (per.getClass() == Student.class) {
-                    System.out.println("Student Home Page");
-                } else {
+                    new StudentHomePage((Student) per);
+                } else if(per.getClass() == Teacher.class){
                     new TeacherHomePage((Teacher) per);
                 }
-                this.dispose();
+             //   this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
