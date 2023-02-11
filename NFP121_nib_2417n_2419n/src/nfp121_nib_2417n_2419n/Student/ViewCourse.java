@@ -1,10 +1,11 @@
+
 package nfp121_nib_2417n_2419n.Student;
 
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -12,11 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-
 import nfp121_nib_2417n_2419n.ChaineOfResponsability.InscriptionInformation;
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.MVC.MyObserver;
 import nfp121_nib_2417n_2419n.Model.Matiere;
+import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
 
@@ -24,16 +26,16 @@ import nfp121_nib_2417n_2419n.Model.Teacher;
  *
  * @author Georges
  */
-public class PayementSection extends Container implements MyObserver {
+public class ViewCourse extends Container implements MyObserver {
 
     private JList matiereInsList;
     private static DefaultListModel matiereInsMod;
     private JScrollPane insScrollPane;
-    private static JButton payementBtn;
+    private static JButton accessCourseBtn;
     //  ArrayList<Person> personList = readAllPerson();
     Student student;
 
-    PayementSection(Student student) {
+    ViewCourse(Student student) {
         this.student = student;
         student.addObserver(this);
         matiereInsMod = new DefaultListModel<Matiere>();
@@ -49,17 +51,17 @@ public class PayementSection extends Container implements MyObserver {
         insScrollPane = new JScrollPane(matiereInsList);
         insScrollPane.setBounds(450, 100, 800, 400);
         insScrollPane.setBorder(BorderFactory.createTitledBorder("Matiere inscrit"));
-        payementBtn = new JButton("Payement");
+       
 
-      
-        payementBtn.addActionListener(new PayementListener());
-        
-        payementBtn.setBounds(750, 520, 150, 20);
-        if (student.getPayement()) {
-            payementBtn.setEnabled(false);
+        accessCourseBtn = new JButton("View Course");
+        if (!student.getPayement()) {
+            accessCourseBtn.setEnabled(false);
         }
-        
-        this.add(payementBtn);
+        accessCourseBtn.setBounds(750, 520, 150, 20);
+        accessCourseBtn.addActionListener(new AccessCourseListener());
+       
+        this.add(accessCourseBtn);
+       
         this.add(insScrollPane);
 
     }
@@ -68,9 +70,6 @@ public class PayementSection extends Container implements MyObserver {
         return matiereInsMod;
     }
 
-    public static JButton getPayementBtn() {
-        return payementBtn;
-    }
 
     @Override
     public void update(MyObservable obs, Object obj) {
@@ -86,16 +85,10 @@ public class PayementSection extends Container implements MyObserver {
         matiereInsList.setModel(matiereInsMod);
 
     }
-
-    class PayementListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            InscriptionInformation concrete = new InscriptionInformation(student);
-
-        }
-
+    public static JButton getAccessCourseBtn(){
+        return accessCourseBtn;
     }
+
 
     class AccessCourseListener implements ActionListener {
 

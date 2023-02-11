@@ -104,6 +104,12 @@ public class Session extends MyObservable implements Serializable {
         }
         return s;
     }
+//     public String toStringStud() {
+//        String s = "";
+//        s += "Session ID : " + sessionId + "\nSession Name : " + name + "\nDate : " + date.toString() + "\nStarts on "
+//                + startTime.toString() + " Ends on " + endTime;
+//        return s;
+//    }
 
     public List<MyObserver> getObservers() {
         return super.observers;
