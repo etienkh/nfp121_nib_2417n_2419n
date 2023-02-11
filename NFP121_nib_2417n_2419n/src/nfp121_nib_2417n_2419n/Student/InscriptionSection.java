@@ -4,15 +4,17 @@
  */
 package nfp121_nib_2417n_2419n.Student;
 
+import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -20,11 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+
 import nfp121_nib_2417n_2419n.IHM.InputOutputPerson;
-import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.Model.Matiere;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.writePerson;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
@@ -38,7 +38,6 @@ public class InscriptionSection extends Container {
     private JList matiereDisTab;
     private DefaultListModel matiereDisMod;
     private final JScrollPane insScrollPane;
-    private JScrollPane disScrollPane;
     private JButton inscriptionBtn;
     ArrayList<Person> personList = readAllPerson();
     Student student;

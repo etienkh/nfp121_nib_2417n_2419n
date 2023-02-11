@@ -6,13 +6,10 @@ package nfp121_nib_2417n_2419n.Teacher;
 
 import java.awt.Container;
 import java.awt.Font;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
 import nfp121_nib_2417n_2419n.Model.Teacher;
 
 /**
@@ -23,7 +20,6 @@ public class TeacherProfile extends Container {
 
     // Components of the Form
 
-    private JFrame frame;
     private JLabel usernameLab, title;
     private JTextField usernameField, lastNameField, firstNameField;
     private JTextField idField;

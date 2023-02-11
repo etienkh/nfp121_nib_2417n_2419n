@@ -33,6 +33,7 @@ import nfp121_nib_2417n_2419n.MVC.MyObserver;
 import nfp121_nib_2417n_2419n.Model.Matiere;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 import nfp121_nib_2417n_2419n.TemplateMethod.ThreeCreditsCoursesQuiz;
 import nfp121_nib_2417n_2419n.TemplateMethod.TwoCreditsCoursesQuiz;
 
@@ -322,7 +323,9 @@ public class CourseSection extends Container {
             }
 
             if (teacher.getMatiere().getQuizzes().size() > 0) {
-                teacher.getMatiere().getQuizTemplate().GradeQuiz(teacher);
+                QuizTemplate temp = teacher.getMatiere().getQuizTemplate();
+                temp.GradeQuiz(teacher);
+                teacher.getMatiere().setQuizTemplate(temp);
             }
 
             for (int i = 0; i < personList.size(); i++) {

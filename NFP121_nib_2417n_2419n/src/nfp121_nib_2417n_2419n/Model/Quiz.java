@@ -10,6 +10,16 @@ public class Quiz extends MyObservable implements Serializable {
     private String quizTitle;
     private List<Question> questions;
     private double maxGrade;
+    private ArrayList<Person> students;
+
+    public ArrayList<Person> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Person> students) {
+        this.students = students;
+    }
+
     public double getMaxGrade() {
         return maxGrade;
     }
@@ -31,10 +41,17 @@ public class Quiz extends MyObservable implements Serializable {
     public Quiz(String quizTitle, List<Question> questions) {
         this.quizTitle = quizTitle;
         this.questions = questions;
+        this.students = new ArrayList<Person>();
+    }
+    public Quiz(String quizTitle, List<Question> questions, ArrayList<Person> students) {
+        this.quizTitle = quizTitle;
+        this.questions = questions;
+        this.students = students;
     }
 
     public Quiz() {
         questions = new ArrayList<>();
+        this.students = new ArrayList<Person>();
     }
 
     public String getQuizTitle() {

@@ -26,6 +26,7 @@ public class ThreeCreditsCoursesQuiz extends QuizTemplate implements Serializabl
         super.questionCorrectGrade = super.maxGrade / questions;
         for (Quiz quiz : quizzes) {
             quiz.setQuestionGrade(super.questionCorrectGrade);
+            quiz.setMaxGrade(super.questionCorrectGrade);
         }
         teacher.getMatiere().setQuizzes(quizzes);
     }

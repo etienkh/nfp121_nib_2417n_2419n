@@ -11,9 +11,7 @@ public class StudentHomePage extends JFrame {
         tabbedPane.addTab("Inscription", new InscriptionSection(student));
         tabbedPane.addTab("Payement", new PayementSection(student));
         tabbedPane.addTab("Profile", new StudentProfile(student));
-//        tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
-//        tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
-//        tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
+        tabbedPane.addTab("Quizzes", DisplayQuizzes.QuizzesViewer(student, this));
 
         this.add(tabbedPane);
 
@@ -24,8 +22,8 @@ public class StudentHomePage extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-//      public static void main(String[] args) {
-//        new StudentHomePage(students);
-//    }
+    // public static void main(String[] args) {
+    // new StudentHomePage(students);
+    // }
 
 }
