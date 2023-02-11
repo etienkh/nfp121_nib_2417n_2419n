@@ -4,7 +4,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -12,12 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+
 import nfp121_nib_2417n_2419n.ChaineOfResponsability.InscriptionInformation;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.MVC.MyObserver;
 import nfp121_nib_2417n_2419n.Model.Matiere;
-import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
 

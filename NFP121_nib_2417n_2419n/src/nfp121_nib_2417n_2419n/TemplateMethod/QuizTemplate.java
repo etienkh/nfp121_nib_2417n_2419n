@@ -4,8 +4,24 @@ import nfp121_nib_2417n_2419n.Model.Teacher;
 
 public abstract class QuizTemplate {
 
-    double maxGrade;
-    double questionCorrectGrade;
+    public double maxGrade;
+    public double getMaxGrade() {
+        return maxGrade;
+    }
+
+    public void setMaxGrade(double maxGrade) {
+        this.maxGrade = maxGrade;
+    }
+
+    public double questionCorrectGrade;
+
+    public double getQuestionCorrectGrade() {
+        return questionCorrectGrade;
+    }
+
+    public void setQuestionCorrectGrade(double questionCorrectGrade) {
+        this.questionCorrectGrade = questionCorrectGrade;
+    }
 
     public final void GradeQuiz(Teacher teacher) {
         calculateMaxGrade(teacher);

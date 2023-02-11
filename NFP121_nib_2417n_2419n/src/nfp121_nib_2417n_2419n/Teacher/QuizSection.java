@@ -3,6 +3,7 @@ package nfp121_nib_2417n_2419n.Teacher;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,13 @@ import javax.swing.text.BadLocationException;
 import nfp121_nib_2417n_2419n.IHM.InputOutputPerson;
 import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.MVC.MyObserver;
+import nfp121_nib_2417n_2419n.Model.Matiere;
+import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Question;
 import nfp121_nib_2417n_2419n.Model.Quiz;
+import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
+import nfp121_nib_2417n_2419n.TemplateMethod.QuizTemplate;
 
 class QuizView extends JFrame implements MyObserver {
 
@@ -290,6 +295,7 @@ class QuizController {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (quiz.isValid()) {
+
                 finishBtn.setEnabled(false);
                 addQuestionBtn.setEnabled(false);
                 resetBtn.setEnabled(false);
@@ -301,10 +307,30 @@ class QuizController {
                     Question cloneQuestion = new Question(question.getQuestion(), question.getOptions(), question.getAnswer());
                     cloneQuestions.add(cloneQuestion);
                 }
-                Quiz clone = new Quiz(quiz.getQuizTitle(), cloneQuestions);
+                Quiz clone = new Quiz(quiz.getQuizTitle(), cloneQuestions, quiz.getStudents());
                 quizzes.add(clone);
                 teacher.getMatiere().setQuizzes(quizzes);
-                teacher.getMatiere().getQuizTemplate().GradeQuiz(teacher);
+                QuizTemplate temp = teacher.getMatiere().getQuizTemplate();
+                temp.GradeQuiz(teacher);
+                teacher.getMatiere().setQuizTemplate(temp);
+                ArrayList<Person> allPersons = InputOutputPerson.readAllPerson();
+                for(Person person : allPersons){
+                    if(person.getClass() == Student.class){
+                        Student student = (Student) person;
+                        ArrayList<Matiere> matieres = student.getMatiereIns();
+                        for(int i = 0 ; i < matieres.size(); i++){
+                            if(matieres.get(i).getCode().equalsIgnoreCase(teacher.getMatiere().getCode())){
+                                matieres.get(i).setQuizzes(teacher.getMatiere().getQuizzes());
+                            }
+                        }
+                        try {
+                            student.setMatiereIns(matieres);
+                            InputOutputPerson.updatePerson(student);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
                 try {
                     InputOutputPerson.updatePerson(teacher);
                 } catch (Exception ex) {

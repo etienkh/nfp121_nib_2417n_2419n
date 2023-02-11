@@ -5,8 +5,15 @@ import java.util.ArrayList;
 public class Student extends Person {
 
     private ArrayList<Matiere> matiereIns;
+    public void setMatiereIns(ArrayList<Matiere> matiereIns) {
+        this.matiereIns = matiereIns;
+    }
     private Boolean payement;
     private ArrayList<Resultat> resultats;
+
+    public ArrayList<Matiere> getMatieres() {
+        return matiereIns;
+    }
 
     public ArrayList<Resultat> getResultats() {
         return resultats;
@@ -19,7 +26,7 @@ public class Student extends Person {
     public Student(String username, String firstName, String lastName, String password) {
         super(username, firstName, lastName, password);
         this.matiereIns = new ArrayList<Matiere>();
-        
+        this.resultats = new ArrayList<Resultat>();
     }
 
     public ArrayList<Matiere> getMatiereIns() {

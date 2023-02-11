@@ -6,9 +6,10 @@ package nfp121_nib_2417n_2419n.Student;
 
 import java.awt.Container;
 import java.awt.Font;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import nfp121_nib_2417n_2419n.Model.Student;
 
 /**
