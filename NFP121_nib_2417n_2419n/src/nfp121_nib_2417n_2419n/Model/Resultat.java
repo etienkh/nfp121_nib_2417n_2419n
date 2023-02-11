@@ -5,15 +5,29 @@
  */
 package nfp121_nib_2417n_2419n.Model;
 
+import java.util.Observable;
+
 /**
  *
  * @author Georges
  */
-public class Resultat {
+public class Resultat extends Observable{
 
-    String matiereTitle;
-    double note;
-    String quizTitle;
+    public String getMatiereTitle() {
+        return matiereTitle;
+    }
+
+    public double getNote() {
+        return note;
+    }
+
+    public String getQuizTitle() {
+        return quizTitle;
+    }
+
+    private String matiereTitle;
+    private double note;
+    private String quizTitle;
 
     public Resultat(String codeMatiere, double note, String quizTitle) {
         this.matiereTitle = codeMatiere;

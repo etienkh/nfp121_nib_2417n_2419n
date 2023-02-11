@@ -3,6 +3,7 @@ package nfp121_nib_2417n_2419n.Student;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import nfp121_nib_2417n_2419n.Model.Student;
+import nfp121_nib_2417n_2419n.Teacher.SessionsSection;
 
 public class StudentHomePage extends JFrame {
 
@@ -11,8 +12,8 @@ public class StudentHomePage extends JFrame {
         tabbedPane.addTab("Inscription", new InscriptionSection(student));
         tabbedPane.addTab("Payement", new PayementSection(student));
         tabbedPane.addTab("Profile", new StudentProfile(student));
-//        tabbedPane.addTab("View Sessions", new JLabel("This is tab 3"));
-//        tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
+        tabbedPane.addTab("View Sessions",SessionsSectionsStud.getSessionsSection(student, this));
+        tabbedPane.addTab("Note", new Note(student));
 //        tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
 
         this.add(tabbedPane);

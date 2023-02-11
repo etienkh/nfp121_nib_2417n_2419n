@@ -14,12 +14,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -28,10 +31,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import nfp121_nib_2417n_2419n.IHM.InputOutputPerson;
 
 import nfp121_nib_2417n_2419n.MVC.MyObserver;
 import nfp121_nib_2417n_2419n.Model.Matiere;
 import nfp121_nib_2417n_2419n.Model.Person;
+import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
 import nfp121_nib_2417n_2419n.TemplateMethod.ThreeCreditsCoursesQuiz;
 import nfp121_nib_2417n_2419n.TemplateMethod.TwoCreditsCoursesQuiz;
@@ -330,6 +335,23 @@ public class CourseSection extends Container {
                     personList.set(i, teacher);
                 }
                 priceField.setText(Integer.toString(teacher.getMatiere().getPrice()));
+            }
+            for(int j = 0 ; j< personList.size();j++){
+                if(personList.get(j).getClass() == Student.class){
+                    Student student = (Student)personList.get(j);
+                    for(int c = 0 ; c < student.getMatiereIns().size(); c++){
+                        if((student.getMatiereIns().get(c).getCode().equalsIgnoreCase(teacher.getMatiere().getCode())) &&(student.getMatiereIns().get(c).getName().equalsIgnoreCase(teacher.getMatiere().getName())) ){
+                            
+                            student.getMatiereIns().set(c, newMatiere);
+                        }
+                    }
+                    try {
+                        InputOutputPerson.updatePerson(student);
+                    } catch (IOException ex) {
+                        Logger.getLogger(CourseSection.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
             }
             try {
 

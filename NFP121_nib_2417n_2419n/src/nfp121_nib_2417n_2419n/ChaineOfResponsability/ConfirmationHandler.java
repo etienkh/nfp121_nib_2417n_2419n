@@ -51,6 +51,7 @@ public class ConfirmationHandler extends PayementHandler {
     @Override
     public void processRequest() {
         PayementSection.getPayementBtn().setEnabled(false);
+        PayementSection.getAccessCourseBtn().setEnabled(true);
         InscriptionInformation.student.setPayement(Boolean.TRUE);
         try {
             InputOutputPerson.updatePerson(InscriptionInformation.student);
