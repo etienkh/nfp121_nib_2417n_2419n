@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import nfp121_nib_2417n_2419n.IHM.InputOutputPerson;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Student.PayementSection;
+import nfp121_nib_2417n_2419n.Student.ViewCourse;
 
 /**
  *
@@ -51,7 +52,7 @@ public class ConfirmationHandler extends PayementHandler {
     @Override
     public void processRequest() {
         PayementSection.getPayementBtn().setEnabled(false);
-        PayementSection.getAccessCourseBtn().setEnabled(true);
+        ViewCourse.getAccessCourseBtn().setEnabled(true);
         InscriptionInformation.student.setPayement(Boolean.TRUE);
         try {
             InputOutputPerson.updatePerson(InscriptionInformation.student);

@@ -11,8 +11,9 @@ public class StudentHomePage extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Inscription", new InscriptionSection(student));
         tabbedPane.addTab("Payement", new PayementSection(student));
+        tabbedPane.addTab("View Courses", new ViewCourse(student));
         tabbedPane.addTab("Profile", new StudentProfile(student));
-        tabbedPane.addTab("View Sessions",SessionsSectionsStud.getSessionsSection(student, this));
+        tabbedPane.addTab("View Sessions", SessionsSectionsStud.getSessionsSection(student, this));
         tabbedPane.addTab("Note", new Note(student));
 //        tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
 
