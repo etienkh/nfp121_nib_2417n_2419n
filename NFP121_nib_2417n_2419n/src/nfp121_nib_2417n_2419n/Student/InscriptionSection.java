@@ -21,10 +21,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import nfp121_nib_2417n_2419n.IHM.InputOutputPerson;
-import nfp121_nib_2417n_2419n.MVC.MyObservable;
 import nfp121_nib_2417n_2419n.Model.Matiere;
 import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
-import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.writePerson;
 import nfp121_nib_2417n_2419n.Model.Person;
 import nfp121_nib_2417n_2419n.Model.Student;
 import nfp121_nib_2417n_2419n.Model.Teacher;
@@ -46,15 +44,16 @@ public class InscriptionSection extends Container {
     public InscriptionSection(Student student) {
         this.student = student;
         matiereDisMod = new DefaultListModel<Teacher>();
-        System.out.println(student.getMatiereIns());
+   
         for (int i = 0; i < personList.size(); i++) {
             if (personList.get(i).getClass() == Teacher.class) {
                 Teacher teacher = (Teacher) personList.get(i);
-                if (teacher.getMatiere() != null) {
+                if (teacher.getMatiere().getCode() != null) {
                     matiereDisMod.addElement(personList.get(i));
                 }
             }
         }
+    
         matiereDisTab = new JList<Teacher>(matiereDisMod);
         insScrollPane = new JScrollPane(matiereDisTab);
         insScrollPane.setBounds(450, 100, 800, 400);

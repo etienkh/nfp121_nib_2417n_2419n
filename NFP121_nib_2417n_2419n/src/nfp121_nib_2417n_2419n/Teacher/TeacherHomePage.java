@@ -23,6 +23,7 @@ public class TeacherHomePage extends JFrame  {
         tabbedPane.addTab("View Sessions", ViewSessions.SessionsController(teacher, session, this));
         tabbedPane.addTab("Quizes", QuizSection.newQuiz(teacher));
         tabbedPane.addTab("View Quizes", ViewQuizzes.QuizzesViewer(teacher, this));
+        tabbedPane.addTab("Inscripted students", new InscriptedStudent(teacher));
           tabbedPane.addTab("Profile", new TeacherProfile(teacher));
 
         this.add(tabbedPane);
@@ -37,3 +38,5 @@ public class TeacherHomePage extends JFrame  {
 
  
 }
+
+

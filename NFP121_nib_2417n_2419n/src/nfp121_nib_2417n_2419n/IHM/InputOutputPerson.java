@@ -33,7 +33,7 @@ public class InputOutputPerson implements Serializable {
     }
 
     public static ArrayList<Person> readAllPerson() {
-        ArrayList<Person> list = new ArrayList<Person>();
+         ArrayList<Person> list = new ArrayList<Person>();
         File file = new File("person");
         try {
 

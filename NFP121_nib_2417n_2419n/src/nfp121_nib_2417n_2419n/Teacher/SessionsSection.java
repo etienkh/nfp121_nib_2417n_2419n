@@ -33,6 +33,7 @@ import java.util.UUID;
  * @author User
  */
 public class SessionsSection extends JPanel {
+
     private JLabel titleLabel, dateLabel, startTimeLabel, endTimeLabel;
     private JTextField titleField, dateField, startTimeField, endTimeField;
     private JButton createButton;
@@ -98,23 +99,30 @@ public class SessionsSection extends JPanel {
                 label.setFont(new Font("calibri", Font.BOLD, 15));
                 JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
-                List<MyObserver> obss = session.getObservers();
-                session = new Session(UUID.randomUUID().toString(),
-                        titleField.getText(),
-                        LocalDate.parse(dateField.getText(), formatter),
-                        LocalTime.parse(startTimeField.getText(), formatter2),
-                        LocalTime.parse(endTimeField.getText(), formatter2));
-                for (MyObserver obs : obss) {
-                    session.addObserver(obs);
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
+                    List<MyObserver> obss = session.getObservers();
+                    session = new Session(UUID.randomUUID().toString(),
+                            titleField.getText(),
+                            LocalDate.parse(dateField.getText(), formatter),
+                            LocalTime.parse(startTimeField.getText(), formatter2),
+                            LocalTime.parse(endTimeField.getText(), formatter2));
+                    for (MyObserver obs : obss) {
+                        session.addObserver(obs);
+                    }
+                    ArrayList<Session> sessions = teacher.getSessions();
+                    Session clone = new Session(session.getSessionId(), session.getName(), session.getDate(),
+                            session.getStartTime(), session.getEndTime());
+                    sessions.add(clone);
+                    teacher.setSessions(sessions);
+                    session.setName(titleField.getText());
+                } catch (Exception ex) {
+                    JLabel label2 = new JLabel("Please respect the format!");
+                    label2.setFont(new Font("calibri", Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(frame, label2);
+                    return;
                 }
-                ArrayList<Session> sessions = teacher.getSessions();
-                Session clone = new Session(session.getSessionId(), session.getName(), session.getDate(),
-                session.getStartTime(), session.getEndTime());
-                sessions.add(clone);
-                teacher.setSessions(sessions);
-                session.setName(titleField.getText());
                 try {
                     InputOutputPerson.updatePerson(teacher);
                     JLabel label2 = new JLabel("Session is scheduled!");

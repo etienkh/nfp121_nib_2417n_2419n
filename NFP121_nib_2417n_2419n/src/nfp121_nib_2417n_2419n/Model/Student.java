@@ -44,7 +44,7 @@ public class Student extends Person {
         notifyObservers();
     }
     public String toString(){
-        return "";
+        return username+" "+firstName+" "+lastName;
     }
 
 }
