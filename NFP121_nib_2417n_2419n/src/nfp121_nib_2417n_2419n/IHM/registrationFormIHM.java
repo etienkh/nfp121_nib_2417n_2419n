@@ -1,6 +1,7 @@
 package nfp121_nib_2417n_2419n.IHM;
 
 import static nfp121_nib_2417n_2419n.IHM.InputOutputPerson.readAllPerson;
+import static nfp121_nib_2417n_2419n.Singleton.PersonSingleton.getInstance;
 
 import java.awt.Container;
 import java.awt.Font;
@@ -191,11 +192,12 @@ class registrationFormIHM extends JFrame {
                 Person person = new Person(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), passwordField.getText());
                 Person personRes = PersonFactory.getPerson(person, persType);
                 InputOutputPerson.writePerson(personRes);
+                Person per = getInstance(personRes);
                 if(personRes.getClass() == Teacher.class){
-                    new TeacherHomePage((Teacher)personRes);
+                    new TeacherHomePage((Teacher)per);
                 }
                 else if(personRes.getClass() == Student.class){
-                    new StudentHomePage((Student)personRes);
+                    new StudentHomePage((Student)per);
                 }
           
                 registrationFormIHM.getFrame().dispose();

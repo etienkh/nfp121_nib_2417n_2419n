@@ -101,7 +101,7 @@ class LoginForm extends JFrame implements ActionListener {
         if (isPersonExists) {  //if authentic, navigate user to a new page  
             Person p = allPersons.stream().filter(i -> i.username.equalsIgnoreCase(userValue) && i.password.equalsIgnoreCase(passValue)).findFirst().get();
             try {
-                Person per = getInstance(p, stud.isSelected() ? "student" : "teacher");
+                Person per = getInstance(p);
                 if (per.getClass() == Student.class) {
                     new StudentHomePage((Student) per);
                 } else if(per.getClass() == Teacher.class){
