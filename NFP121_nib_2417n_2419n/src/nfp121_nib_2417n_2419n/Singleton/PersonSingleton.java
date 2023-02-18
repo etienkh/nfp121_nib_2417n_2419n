@@ -8,7 +8,7 @@ public class PersonSingleton {
     
         private static Person person;
         
-        public static Person getInstance(Person p, String typePerson) throws IOException{
+        public static Person getInstance(Person p){
             if(person != null)
                 return person;
             person = p;
