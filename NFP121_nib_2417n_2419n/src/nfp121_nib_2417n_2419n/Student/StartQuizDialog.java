@@ -1,18 +1,23 @@
 package nfp121_nib_2417n_2419n.Student;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 
 import nfp121_nib_2417n_2419n.Command.Command;
 import nfp121_nib_2417n_2419n.Command.EvaluateQuizCommand;
@@ -90,6 +95,14 @@ public class StartQuizDialog extends JDialog {
         this.resultat = new ArrayList<Answers>();
         this.matiere = matiere;
         this.quiz = quiz;
+        Border border = BorderFactory.createEmptyBorder(20,20,50,20);
+
+        // set the border of the content pane to the created border
+        ((JComponent) getContentPane()).setBorder(border);
+
+        setSize(1000 , 1000);
+        BoxLayout layout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
+        setLayout(layout);
         for(Question question : quiz.getQuestions()){
             JPanel panel = generateQuestion(question);
             add(panel);
@@ -109,11 +122,8 @@ public class StartQuizDialog extends JDialog {
               }
             }
           });
-        setLayout(new FlowLayout());
-        add(questionLabel);
-        add(finishBtn);
+        add(finishBtn, BorderLayout.CENTER);
 
-        setSize(1000 , 1000);
         setResizable(true);
         setLocationRelativeTo(parent);
     }
@@ -124,7 +134,7 @@ public class StartQuizDialog extends JDialog {
 
         JPanel panel = new JPanel();
         questionLabel = new JLabel(question.getQuestion());
-        panel.add(questionLabel, BorderLayout.NORTH);
+        panel.add(questionLabel);
 
         JPanel answerPanel = new JPanel();
         answerPanel.setLayout(new GridLayout(4, 1));
@@ -146,7 +156,7 @@ public class StartQuizDialog extends JDialog {
                 }
             });
         }
-        panel.add(answerPanel, BorderLayout.CENTER);
+        panel.add(answerPanel);
         return panel;
     }
 }
