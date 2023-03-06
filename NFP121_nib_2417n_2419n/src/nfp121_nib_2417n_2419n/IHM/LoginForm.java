@@ -65,13 +65,6 @@ class LoginForm extends JFrame implements ActionListener {
         newPanel1.add(radioPanel);
         newPanel1.add(passLabel);    //set password label to panel  
         newPanel1.add(textField2);   //set text field to panel
-        stud = new JRadioButton("Student");
-        teach = new JRadioButton("Teacher");
-        ButtonGroup group = new ButtonGroup();
-        group.add(stud);
-        group.add(teach);
-        radioPanel.add(stud);
-        radioPanel.add(teach);
         newPanel2.add(b1);           //set button to panel  
         newPanel2.add(b2);
         newPanel = new JPanel();
